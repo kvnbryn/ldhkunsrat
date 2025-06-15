@@ -1,0 +1,578 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LDHK UNSRAT - Lembaga Debat Hukum & Konstitusi</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brandRed: {
+                            light: '#C13B58',
+                            DEFAULT: '#A91D3A',
+                            dark: '#8B172E'
+                        },
+                        lightGray: {
+                            light: '#F8F9FA',
+                            DEFAULT: '#F1F1F1',
+                            dark: '#E0E0E0'
+                        }
+                    },
+                    fontFamily: {
+                        'sans': ['Montserrat', 'sans-serif'],
+                        'display': ['Orbitron', 'sans-serif'],
+                        'serif': ['Merriweather', 'serif'] // Font baru untuk sentuhan formal
+                    },
+                    minHeight: {
+                        '28': '7rem',
+                        '32': '8rem',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Orbitron:wght@400;700&family=Merriweather:wght@400;700&display=swap');
+
+        /* --- General Styling --- */
+        html { scroll-behavior: smooth; }
+        body { font-family: 'Montserrat', sans-serif; background-color: #fdfdfd; color: #333; }
+        .clip-path-hero { clip-path: polygon(0 0, 100% 0, 100% 85%, 0 100%); }
+        .section-title { position: relative; display: inline-block; color: #8B172E; font-family: 'Merriweather', serif; }
+        .section-title::after { content: ''; position: absolute; bottom: -10px; left: 0; width: 60%; height: 4px; background: linear-gradient(90deg, #A91D3A 0%, #E0E0E0 100%); border-radius: 2px; }
+
+        /* --- Navbar Styling --- */
+        .nav-link { position: relative; transition: all 0.3s ease; color: #4A5568; }
+        .nav-link:hover { color: #8B172E; }
+        .nav-link::after { content: ''; position: absolute; bottom: -5px; left: 0; width: 0; height: 2px; background-color: #A91D3A; transition: width 0.3s ease; }
+        .nav-link:hover::after, .nav-link.active::after { width: 100%; }
+        .nav-link.active { color: #8B172E; font-weight: 600; }
+        
+        /* --- Hero Section --- */
+        #home { background: linear-gradient(45deg, #8B172E, #A91D3A); }
+
+        /* --- Pengurus (Structure) Section Styling --- */
+        .pengurus-container { position: relative; }
+        #pengurusSliderWrapper { overflow: hidden; position: relative; width: 100%; }
+        #pengurusSlider { display: flex; width: 100%; transition: transform 0.5s ease-in-out; }
+        .pengurus-slide { min-width: 100%; width: 100%; flex-shrink: 0; box-sizing: border-box; opacity: 0; transform: translateX(50px); display: flex; flex-direction: column; align-items: center; gap: 1.5rem; padding: 0; transition: opacity 0.5s ease, transform 0.5s ease; }
+        .visible-slide { opacity: 1; transform: translateX(0); }
+        .chairman-block { display: flex; flex-direction: column; align-items: center; margin-bottom: 1rem; }
+        .chairman-block img { width: 14rem; height: 17.5rem; border-radius: 100px; object-fit: cover; box-shadow: 0 4px 8px rgba(0,0,0,0.1); }
+        .chairman-block .name { font-size: 1.125rem; font-weight: 600; color: #8B172E; margin-top: 0.75rem; }
+        .chairman-block .title { font-size: 0.875rem; color: #666; text-transform: uppercase; letter-spacing: 0.05em; }
+        .members-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1rem; align-items: start; width: 100%; margin-bottom: 1.5rem; }
+        .member-card { display: flex; flex-direction: column; align-items: center; }
+        .member-card img { width: 10rem; height: 12.5rem; border-radius: 80px; object-fit: cover; box-shadow: 0 3px 6px rgba(0,0,0,0.1); }
+        .member-card .name { font-size: 0.875rem; font-weight: 500; color: #8B172E; margin-top: 0.5rem; text-align: center; }
+        .member-card .title { font-size: 0.75rem; color: #777; text-transform: uppercase; letter-spacing: 0.05em; }
+        .nav-btn-container { position: absolute; top: 50%; transform: translateY(-50%); width: 100%; display: flex; justify-content: space-between; padding: 0 1rem; z-index: 20; pointer-events: none; }
+        .nav-btn { pointer-events: auto; background-color: rgba(139, 23, 46, 0.8); color: white; padding: 0.75rem; line-height: 0; border-radius: 9999px; box-shadow: 0 2px 4px rgba(0,0,0,0.2); transition: background-color 0.3s ease, transform 0.3s ease; }
+        .nav-btn:hover { background-color: #8B172E; transform: scale(1.1); }
+        .mobile-dots-indicator { display: none; text-align: center; margin-top: 1.5rem; padding-bottom: 1rem; }
+        .dot { display: inline-block; width: 10px; height: 10px; background-color: #E0E0E0; border-radius: 50%; margin: 0 5px; transition: background-color 0.3s ease, transform 0.3s ease; cursor: pointer; }
+        .dot.active { background-color: #A91D3A; transform: scale(1.2); }
+
+        /* --- Demisioner Section --- */
+        .accordion-item { border: 1px solid #E0E0E0; border-radius: 0.5rem; margin-bottom: 1rem; overflow: hidden; }
+        .accordion-header { background-color: #f8f9fa; padding: 1rem 1.5rem; cursor: pointer; display: flex; justify-content: space-between; align-items: center; transition: background-color 0.3s ease; }
+        .accordion-header:hover { background-color: #f1f1f1; }
+        .accordion-header h3 { font-family: 'Merriweather', serif; font-weight: 700; color: #8B172E; }
+        .accordion-icon { transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
+        .accordion-item.active .accordion-icon { transform: rotate(180deg); }
+        .accordion-content { max-height: 0; overflow: hidden; transition: max-height 0.5s ease-out, padding 0.5s ease-out; background-color: #fff; padding: 0 1.5rem; }
+        .demisioner-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 1.5rem; padding: 1.5rem 0; }
+        .demisioner-card { text-align: center; }
+        .demisioner-card img { width: 120px; height: 120px; border-radius: 50%; object-fit: cover; margin: 0 auto; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
+        .demisioner-card .name { font-weight: 600; color: #333; margin-top: 0.75rem; font-size: 0.9rem; }
+        .demisioner-card .title { color: #666; font-size: 0.8rem; }
+
+        /* --- Prestasi & Aktivitas (Gallery) Styling --- */
+        .gallery-item { overflow: hidden; position: relative; cursor: pointer; border-radius: 0.75rem; box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1); transition: transform 0.3s ease, box-shadow 0.3s ease; }
+        .gallery-item:hover { transform: translateY(-6px) scale(1.02); box-shadow: 0 10px 25px rgba(139, 23, 46, 0.2); }
+        .gallery-item img { transition: transform 0.5s ease; width: 100%; height: 100%; object-fit: cover; }
+        .gallery-item:hover img { transform: scale(1.1); }
+        .gallery-overlay { position: absolute; bottom: 0; left: 0; right: 0; background: linear-gradient(to top, rgba(100, 10, 25, 0.95) 10%, rgba(100, 10, 25, 0.7) 50%, transparent); padding: 1.5rem 1.25rem; opacity: 0; transform: translateY(20px); transition: opacity 0.4s ease, transform 0.4s ease; border-bottom-left-radius: 0.75rem; border-bottom-right-radius: 0.75rem; }
+        .gallery-item:hover .gallery-overlay { opacity: 1; transform: translateY(0); }
+
+        /* --- Button Styling --- */
+        .btn { display: inline-block; padding: 0.8rem 1.8rem; border-radius: 0.5rem; font-weight: 600; text-align: center; transition: all 0.3s ease; cursor: pointer; border: none; box-shadow: 0 3px 6px rgba(0,0,0,0.1); font-family: 'Montserrat', sans-serif; }
+        .btn-red { background-color: #A91D3A; color: white; }
+        .btn-red:hover { background-color: #8B172E; box-shadow: 0 5px 12px rgba(139, 23, 46, 0.25); transform: translateY(-2px); }
+        .btn-outline-white { background-color: transparent; color: white; border: 2px solid white; }
+        .btn-outline-white:hover { background-color: rgba(255, 255, 255, 0.1); transform: translateY(-2px); box-shadow: 0 5px 12px rgba(255, 255, 255, 0.1); }
+        
+        /* --- Preloader --- */
+        #preloader.hidden { opacity: 0; pointer-events: none; }
+
+        /* --- Responsive Overrides --- */
+        @media (max-width: 768px) {
+             .members-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+             .demisioner-grid { grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); }
+        }
+        @media (max-width: 640px) {
+            .pengurus-container { padding: 1rem 0; }
+            #pengurusSliderWrapper { overflow-x: auto; scroll-snap-type: x mandatory; -webkit-overflow-scrolling: touch; scrollbar-width: none; cursor: grab; }
+            #pengurusSliderWrapper::-webkit-scrollbar { display: none; }
+            #pengurusSliderWrapper:active { cursor: grabbing; }
+            #pengurusSlider { transition: none; transform: none !important; }
+            .pengurus-slide { scroll-snap-align: center; padding: 0 1rem; opacity: 1; transform: none; transition: none; gap: 1rem; }
+            .chairman-block img { width: 12rem; height: 15rem; border-radius: 90px; }
+            .members-grid { display: flex; flex-direction: column; align-items: center; gap: 1rem; width: 100%; }
+            .member-card img { width: 10rem; height: 12.5rem; border-radius: 80px; }
+            .nav-btn-container { display: none; }
+            .mobile-dots-indicator { display: block; }
+        }
+    </style>
+</head>
+<body class="bg-lightGray-light">
+
+    <div id="preloader" class="fixed inset-0 bg-lightGray-light z-[9999] flex justify-center items-center transition-opacity duration-700 ease-out">
+        <div class="w-16 h-16 border-4 border-lightGray-dark border-t-brandRed rounded-full animate-spin"></div>
+    </div>
+
+    <nav class="fixed w-full bg-white/95 backdrop-blur-sm z-50 transition-all duration-300 shadow-sm" id="navbar">
+        <div class="container mx-auto px-4 py-3 flex justify-between items-center">
+            <a href="#home" class="flex items-center space-x-3 group">
+                <span class="text-2xl text-brandRed group-hover:text-brandRed-dark transition-colors"><i class="fas fa-gavel"></i></span>
+                <span class="text-xl font-display font-semibold text-brandRed group-hover:text-brandRed-dark transition-colors">LDHK UNSRAT</span>
+            </a>
+            <div class="hidden md:flex space-x-8">
+                <a href="#home" class="nav-link active">Beranda</a>
+                <a href="#profil" class="nav-link">Profil</a>
+                <a href="#pengurus" class="nav-link">Pengurus</a>
+                <a href="#demisioner" class="nav-link">Demisioner</a>
+                <a href="#prestasi" class="nav-link">Prestasi</a>
+                <a href="#elibrary" class="nav-link">e-Library</a>
+                <a href="#aktivitas" class="nav-link">Aktivitas</a>
+                <a href="#kontak" class="nav-link">Kontak</a>
+            </div>
+            <div class="md:hidden">
+                <button id="menu-toggle" class="text-brandRed focus:outline-none p-2 -mr-2">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
+                </button>
+            </div>
+        </div>
+        <div id="mobile-menu" class="hidden md:hidden bg-white py-4 px-4 absolute w-full shadow-lg border-t border-gray-200">
+            <a href="#home" class="block py-2 text-brandRed font-semibold">Beranda</a>
+            <a href="#profil" class="block py-2 text-gray-700 hover:text-brandRed font-medium">Profil</a>
+            <a href="#pengurus" class="block py-2 text-gray-700 hover:text-brandRed font-medium">Pengurus</a>
+            <a href="#demisioner" class="block py-2 text-gray-700 hover:text-brandRed font-medium">Demisioner</a>
+            <a href="#prestasi" class="block py-2 text-gray-700 hover:text-brandRed font-medium">Prestasi</a>
+            <a href="#elibrary" class="block py-2 text-gray-700 hover:text-brandRed font-medium">e-Library</a>
+            <a href="#aktivitas" class="block py-2 text-gray-700 hover:text-brandRed font-medium">Aktivitas</a>
+            <a href="#kontak" class="block py-2 text-gray-700 hover:text-brandRed font-medium">Kontak</a>
+        </div>
+    </nav>
+
+    <section id="home" class="relative h-screen flex items-center clip-path-hero overflow-hidden">
+        <div class="absolute inset-0 bg-black/40 z-[1]"></div>
+        <div class="container mx-auto px-4 relative z-[3]">
+            <div class="max-w-3xl text-left">
+                <h1 class="text-5xl md:text-7xl font-display font-bold text-white mb-3 leading-tight drop-shadow-lg">
+                    Lembaga Debat Hukum & Konstitusi
+                </h1>
+                <p class="text-lg md:text-xl font-sans font-semibold text-lightGray-dark mb-6 drop-shadow-md">
+                    Universitas Sam Ratulangi
+                </p>
+                <hr class="border-t-2 border-white w-24 my-4 opacity-80">
+                <p class="text-base md:text-lg text-white mb-8 max-w-xl leading-relaxed drop-shadow-sm">
+                    Mencetak insan akademis yang kritis, argumentatif, dan berprestasi dalam supremasi hukum dan konstitusi.
+                </p>
+                <div class="flex flex-col sm:flex-row gap-4">
+                    <a href="#profil" class="btn btn-red">
+                        Kenali Kami
+                    </a>
+                    <a href="#kontak" class="btn btn-outline-white">
+                        Hubungi Kami
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="profil" class="py-20 bg-white">
+        <div class="container mx-auto px-4">
+             <div class="grid grid-cols-1 lg:grid-cols-5 gap-12 items-center">
+                <div class="lg:col-span-2">
+                    <img src="https://placehold.co/500x600/A91D3A/FFFFFF?text=LDHK" alt="Profil LDHK" class="rounded-lg shadow-xl w-full h-auto object-cover">
+                </div>
+                <div class="lg:col-span-3">
+                    <h2 class="section-title text-3xl md:text-4xl font-bold mb-8">Profil Organisasi</h2>
+                    <div class="space-y-6 text-gray-700 leading-relaxed">
+                        <p>
+                            <span class="font-bold text-brandRed-dark">Lembaga Debat Hukum & Konstitusi (LDHK)</span> Universitas Sam Ratulangi adalah wadah bagi mahasiswa untuk mengembangkan potensi di bidang perdebatan hukum, analisis konstitusi, dan pemikiran kritis.
+                        </p>
+                        <p>
+                            Didirikan atas semangat untuk menciptakan budaya diskursus yang intelektual, LDHK berkomitmen untuk melahirkan delegasi-delegasi yang mampu bersaing dan berprestasi di tingkat regional maupun nasional, serta membentuk calon-calon yuris masa depan yang berintegritas dan berkualitas.
+                        </p>
+                        <div>
+                            <h4 class="font-bold text-lg text-brandRed-dark mb-2 font-serif">Visi & Misi</h4>
+                            <ul class="list-none space-y-2">
+                                <li class="flex items-start"><i class="fas fa-bullseye text-brandRed mt-1 mr-3"></i><span><span class="font-semibold">Visi:</span> Menjadi organisasi debat hukum terkemuka yang unggul dalam prestasi dan kontributif dalam wacana hukum nasional.</span></li>
+                                <li class="flex items-start"><i class="fas fa-rocket text-brandRed mt-1 mr-3"></i><span><span class="font-semibold">Misi:</span> Menyelenggarakan pelatihan, riset, dan kompetisi untuk meningkatkan kapasitas anggota secara komprehensif.</span></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="pengurus" class="py-20 bg-lightGray-light">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16">
+                <h2 class="section-title text-3xl md:text-4xl font-bold mb-4">Struktur Pengurus</h2>
+                <p class="text-gray-600 max-w-2xl mx-auto">Badan Pengurus Harian dan Koordinator Divisi LDHK UNSRAT periode 2025-2026.</p>
+            </div>
+            <div class="bg-white rounded-xl shadow-lg p-4 sm:p-8 mb-8 pengurus-container">
+                <div id="pengurusSliderWrapper">
+                    <div id="pengurusSlider">
+                        <div class="pengurus-slide">
+                            <h3 class="text-xl font-bold text-brandRed-dark mb-6 text-center uppercase tracking-wider font-serif">Badan Pengurus Harian</h3>
+                            <div class="chairman-block">
+                                <img src="https://placehold.co/224x280/E0E0E0/8B172E?text=Ketua" alt="Ketua Umum">
+                                <p class="name">Nama Ketua Umum</p>
+                                <p class="title">Ketua Umum</p>
+                            </div>
+                            <div class="members-grid">
+                                <div class="member-card">
+                                    <img src="https://placehold.co/160x200/E0E0E0/8B172E?text=Wakil" alt="Wakil Ketua">
+                                    <p class="name">Nama Wakil Ketua</p>
+                                    <p class="title">Wakil Ketua Umum</p>
+                                </div>
+                                <div class="member-card">
+                                    <img src="https://placehold.co/160x200/E0E0E0/8B172E?text=Sekretaris" alt="Sekretaris">
+                                    <p class="name">Nama Sekretaris</p>
+                                    <p class="title">Sekretaris Umum</p>
+                                </div>
+                                <div class="member-card">
+                                    <img src="https://placehold.co/160x200/E0E0E0/8B172E?text=Bendahara" alt="Bendahara">
+                                    <p class="name">Nama Bendahara</p>
+                                    <p class="title">Bendahara Umum</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="pengurus-slide">
+                            <h3 class="text-xl font-bold text-brandRed-dark mb-6 text-center uppercase tracking-wider font-serif">Divisi I - Kajian & Riset</h3>
+                            <div class="chairman-block">
+                                <img src="https://placehold.co/224x280/E0E0E0/8B172E?text=Koor" alt="Koordinator Divisi I">
+                                <p class="name">Nama Koordinator</p>
+                                <p class="title">Koordinator Divisi</p>
+                            </div>
+                            <div class="w-full max-w-2xl mt-4 px-2 min-h-28">
+                                <p class="text-sm text-gray-600 text-center leading-relaxed">Bertanggung jawab atas riset isu-isu hukum, pengembangan mosi debat, dan penyelenggaraan diskusi serta kajian rutin untuk memperdalam wawasan anggota.</p>
+                            </div>
+                        </div>
+                        <div class="pengurus-slide">
+                            <h3 class="text-xl font-bold text-brandRed-dark mb-6 text-center uppercase tracking-wider font-serif">Divisi II - Kompetisi & Delegasi</h3>
+                            <div class="chairman-block">
+                                <img src="https://placehold.co/224x280/E0E0E0/8B172E?text=Koor" alt="Koordinator Divisi II">
+                                <p class="name">Nama Koordinator</p>
+                                <p class="title">Koordinator Divisi</p>
+                            </div>
+                             <div class="w-full max-w-2xl mt-4 px-2 min-h-28">
+                                <p class="text-sm text-gray-600 text-center leading-relaxed">Bertugas mempersiapkan dan menyeleksi delegasi untuk kompetisi, mengatur strategi lomba, serta menjalin komunikasi dengan penyelenggara kompetisi eksternal.</p>
+                            </div>
+                        </div>
+                        <div class="pengurus-slide">
+                            <h3 class="text-xl font-bold text-brandRed-dark mb-6 text-center uppercase tracking-wider font-serif">Divisi III - Humas & Media</h3>
+                            <div class="chairman-block">
+                                <img src="https://placehold.co/224x280/E0E0E0/8B172E?text=Koor" alt="Koordinator Divisi III">
+                                <p class="name">Nama Koordinator</p>
+                                <p class="title">Koordinator Divisi</p>
+                            </div>
+                             <div class="w-full max-w-2xl mt-4 px-2 min-h-28">
+                                <p class="text-sm text-gray-600 text-center leading-relaxed">Mengelola citra organisasi, publikasi kegiatan, manajemen media sosial, dan membangun jaringan kerjasama dengan pihak eksternal, termasuk alumni dan lembaga lain.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="nav-btn-container">
+                    <button id="prevPengurusBtn" class="nav-btn"><i class="fas fa-chevron-left"></i></button>
+                    <button id="nextPengurusBtn" class="nav-btn"><i class="fas fa-chevron-right"></i></button>
+                </div>
+                <div class="mobile-dots-indicator" id="dotsIndicator"></div>
+            </div>
+        </div>
+    </section>
+
+    <section id="demisioner" class="py-20 bg-white">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16">
+                <h2 class="section-title text-3xl md:text-4xl font-bold mb-4">Demisioner Pengurus</h2>
+                <p class="text-gray-600 max-w-2xl mx-auto">Menghargai dedikasi para pengurus dari masa ke masa yang telah membangun LDHK.</p>
+            </div>
+            <div class="max-w-4xl mx-auto" id="accordion-container">
+                <div class="accordion-item">
+                    <div class="accordion-header">
+                        <h3>Kepengurusan Periode 2024-2025</h3>
+                        <i class="fas fa-chevron-down accordion-icon"></i>
+                    </div>
+                    <div class="accordion-content">
+                        <div class="demisioner-grid">
+                            <div class="demisioner-card">
+                                <img src="https://placehold.co/120x120/E0E0E0/8B172E?text=A" alt="Nama Demisioner">
+                                <p class="name">Nama Lengkap</p><p class="title">Jabatan</p>
+                            </div>
+                            <div class="demisioner-card">
+                                <img src="https://placehold.co/120x120/E0E0E0/8B172E?text=B" alt="Nama Demisioner">
+                                <p class="name">Nama Lengkap</p><p class="title">Jabatan</p>
+                            </div>
+                             <div class="demisioner-card">
+                                <img src="https://placehold.co/120x120/E0E0E0/8B172E?text=C" alt="Nama Demisioner">
+                                <p class="name">Nama Lengkap</p><p class="title">Jabatan</p>
+                            </div>
+                             <div class="demisioner-card">
+                                <img src="https://placehold.co/120x120/E0E0E0/8B172E?text=D" alt="Nama Demisioner">
+                                <p class="name">Nama Lengkap</p><p class="title">Jabatan</p>
+                            </div>
+                             <div class="demisioner-card">
+                                <img src="https://placehold.co/120x120/E0E0E0/8B172E?text=E" alt="Nama Demisioner">
+                                <p class="name">Nama Lengkap</p><p class="title">Jabatan</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <div class="accordion-header">
+                        <h3>Kepengurusan Periode 2023-2024</h3>
+                        <i class="fas fa-chevron-down accordion-icon"></i>
+                    </div>
+                    <div class="accordion-content">
+                         <div class="demisioner-grid">
+                           <p class="text-center col-span-full text-gray-500">Data untuk periode ini akan segera ditambahkan.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section id="prestasi" class="py-20 bg-lightGray-light">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16">
+                <h2 class="section-title text-3xl md:text-4xl font-bold mb-4">Prestasi & Penghargaan</h2>
+                <p class="text-gray-600 max-w-2xl mx-auto">Jejak pencapaian delegasi LDHK dalam berbagai kompetisi debat hukum bergengsi.</p>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="gallery-item group">
+                    <img src="https://placehold.co/600x450/8B172E/FFFFFF?text=Juara+I" alt="Prestasi 1" class="w-full h-full object-cover">
+                    <div class="gallery-overlay">
+                        <h3 class="text-lg font-bold text-white mb-1">Juara I Debat Konstitusi Nasional</h3>
+                        <p class="text-sm text-gray-200">Kompetisi tingkat nasional yang diselenggarakan oleh Mahkamah Konstitusi RI, 2024.</p>
+                    </div>
+                </div>
+                <div class="gallery-item group">
+                    <img src="https://placehold.co/600x450/A91D3A/FFFFFF?text=Best+Speaker" alt="Prestasi 2" class="w-full h-full object-cover">
+                    <div class="gallery-overlay">
+                        <h3 class="text-lg font-bold text-white mb-1">Best Speaker Award</h3>
+                        <p class="text-sm text-gray-200">Penghargaan Pembicara Terbaik dalam Lomba Debat Hukum ALSA UI, 2024.</p>
+                    </div>
+                </div>
+                <div class="gallery-item group">
+                    <img src="https://placehold.co/600x450/C13B58/FFFFFF?text=Finalis" alt="Prestasi 3" class="w-full h-full object-cover">
+                    <div class="gallery-overlay">
+                        <h3 class="text-lg font-bold text-white mb-1">Finalis Lomba Debat Piala Ketua MPR RI</h3>
+                        <p class="text-sm text-gray-200">Mencapai babak final dalam salah satu kompetisi paling kompetitif di Indonesia, 2023.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="elibrary" class="py-20 bg-white text-center">
+        <div class="container mx-auto px-4">
+            <i class="fas fa-book-open text-5xl text-brandRed mb-4"></i>
+            <h2 class="section-title text-3xl md:text-4xl font-bold mb-4">Pustaka Digital LDHK</h2>
+            <p class="text-gray-600 max-w-2xl mx-auto mb-8">Akses koleksi modul pelatihan, bank mosi, riset hukum, dan sumber daya lainnya untuk menunjang perkembangan Anda.</p>
+            <a href="https://drive.google.com/drive/folders/1--0rAzBqmsbvRCvq75Lvq2HmMd35G3kX" target="_blank" rel="noopener noreferrer" class="btn btn-red text-lg">
+                <i class="fas fa-folder-open mr-2"></i> Kunjungi e-Library
+            </a>
+        </div>
+    </section>
+
+    <section id="aktivitas" class="py-20 bg-lightGray-light">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16">
+                <h2 class="section-title text-3xl md:text-4xl font-bold mb-4">Galeri Aktivitas</h2>
+                <p class="text-gray-600 max-w-2xl mx-auto">Momen-momen dari berbagai kegiatan kami, mulai dari latihan rutin hingga seminar.</p>
+            </div>
+             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                <div class="gallery-item group relative aspect-[4/3]">
+                     <img src="https://placehold.co/600x450/333333/FFFFFF?text=Latihan+Rutin" alt="Latihan Rutin">
+                     <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent"></div>
+                     <h3 class="absolute bottom-4 left-4 text-lg font-bold text-white">Latihan Rutin Mingguan</h3>
+                </div>
+                 <div class="gallery-item group relative aspect-[4/3]">
+                     <img src="https://placehold.co/600x450/555555/FFFFFF?text=Debat+Internal" alt="Debat Internal">
+                     <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent"></div>
+                     <h3 class="absolute bottom-4 left-4 text-lg font-bold text-white">Internal Sparring Session</h3>
+                </div>
+                 <div class="gallery-item group relative aspect-[4/3]">
+                     <img src="https://placehold.co/600x450/777777/FFFFFF?text=Seminar" alt="Seminar">
+                     <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent"></div>
+                     <h3 class="absolute bottom-4 left-4 text-lg font-bold text-white">Seminar Hukum Konstitusi</h3>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section id="kontak" class="py-20 bg-brandRed-dark text-center text-white">
+        <div class="container mx-auto px-4">
+            <h2 class="font-serif text-3xl md:text-4xl font-bold mb-4">Terhubung Dengan Kami</h2>
+            <p class="max-w-2xl mx-auto mb-8 opacity-90">Untuk informasi pendaftaran, penawaran kerjasama, atau pertanyaan lainnya, kunjungi pusat tautan kami.</p>
+            <a href="https://linktr.ee/ldhkunsrat" target="_blank" rel="noopener noreferrer" class="btn btn-outline-white text-lg">
+                <i class="fas fa-link mr-2"></i> Kunjungi Linktree
+            </a>
+        </div>
+    </section>
+
+    <footer class="bg-gray-800 text-gray-300 py-12">
+        <div class="container mx-auto px-4 text-center">
+            <p>© <span id="current-year"></span> LDHK UNSRAT. All Rights Reserved.</p>
+            <p class="text-sm mt-2 opacity-70">Crafted with passion for legal discourse.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Preloader
+        window.addEventListener('load', () => {
+            document.getElementById('preloader').classList.add('hidden');
+        });
+
+        // Mobile Menu
+        const menuToggle = document.getElementById('menu-toggle');
+        const mobileMenu = document.getElementById('mobile-menu');
+        menuToggle.addEventListener('click', () => mobileMenu.classList.toggle('hidden'));
+        mobileMenu.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => mobileMenu.classList.add('hidden'));
+        });
+
+        // Navbar Scroll Effect
+        const navbar = document.getElementById('navbar');
+        window.addEventListener('scroll', () => {
+            navbar.classList.toggle('shadow-md', window.scrollY > 50);
+        });
+
+        // Active Nav Link Highlighting
+        const navLinks = document.querySelectorAll('.nav-link');
+        const sections = document.querySelectorAll('section[id]');
+        window.addEventListener('scroll', () => {
+            let current = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                if (pageYOffset >= sectionTop - 100) {
+                    current = section.getAttribute('id');
+                }
+            });
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href').substring(1) === current) {
+                    link.classList.add('active');
+                }
+            });
+        });
+
+        // Accordion for Demisioner
+        const accordionItems = document.querySelectorAll('.accordion-item');
+        accordionItems.forEach(item => {
+            const header = item.querySelector('.accordion-header');
+            const content = item.querySelector('.accordion-content');
+            header.addEventListener('click', () => {
+                const isActive = item.classList.contains('active');
+                // Close all items
+                accordionItems.forEach(i => {
+                    i.classList.remove('active');
+                    i.querySelector('.accordion-content').style.maxHeight = '0px';
+                    i.querySelector('.accordion-content').style.padding = '0 1.5rem';
+                });
+                // Open the clicked one if it wasn't active
+                if (!isActive) {
+                    item.classList.add('active');
+                    content.style.maxHeight = content.scrollHeight + 'px';
+                    content.style.padding = '1.5rem';
+                }
+            });
+        });
+
+        // Pengurus Slider Logic
+        (function() {
+            const sliderWrapper = document.getElementById('pengurusSliderWrapper');
+            const slider = document.getElementById('pengurusSlider');
+            const slides = document.querySelectorAll('.pengurus-slide');
+            const prevBtn = document.getElementById('prevPengurusBtn');
+            const nextBtn = document.getElementById('nextPengurusBtn');
+            const dotsIndicator = document.getElementById('dotsIndicator');
+            if (!slider || !slides.length) return;
+
+            let currentIndex = 0;
+            let isDesktop = window.innerWidth >= 641;
+            
+            function setupDots() {
+                dotsIndicator.innerHTML = '';
+                slides.forEach((_, index) => {
+                    const dot = document.createElement('span');
+                    dot.classList.add('dot');
+                    dot.addEventListener('click', () => goToSlide(index));
+                    dotsIndicator.appendChild(dot);
+                });
+            }
+
+            function updateDots() {
+                const dots = dotsIndicator.querySelectorAll('.dot');
+                dots.forEach((dot, index) => dot.classList.toggle('active', index === currentIndex));
+            }
+
+            function goToSlide(index) {
+                currentIndex = (index + slides.length) % slides.length;
+                if (isDesktop) {
+                    slider.style.transform = `translateX(-${currentIndex * 100}%)`;
+                    slides.forEach((s, i) => s.classList.toggle('visible-slide', i === currentIndex));
+                } else {
+                    sliderWrapper.scrollTo({ left: currentIndex * sliderWrapper.offsetWidth, behavior: 'smooth' });
+                }
+                updateDots();
+            }
+            
+            function handleResize() {
+                isDesktop = window.innerWidth >= 641;
+                slider.style.transition = 'none'; // Disable transition during resize
+                goToSlide(currentIndex); // Re-align
+                setTimeout(() => slider.style.transition = 'transform 0.5s ease-in-out', 50);
+            }
+
+            prevBtn.addEventListener('click', () => goToSlide(currentIndex - 1));
+            nextBtn.addEventListener('click', () => goToSlide(currentIndex + 1));
+            window.addEventListener('resize', handleResize);
+
+            // Mobile scroll snap sync
+            let scrollTimeout;
+            sliderWrapper.addEventListener('scroll', () => {
+                if(!isDesktop) {
+                    clearTimeout(scrollTimeout);
+                    scrollTimeout = setTimeout(() => {
+                        const newIndex = Math.round(sliderWrapper.scrollLeft / sliderWrapper.offsetWidth);
+                        if (newIndex !== currentIndex) {
+                            currentIndex = newIndex;
+                            updateDots();
+                        }
+                    }, 150);
+                }
+            });
+
+            // Initial Setup
+            setupDots();
+            goToSlide(0);
+            slides[0].classList.add('visible-slide');
+        })();
+
+        // Update Copyright Year
+        document.getElementById('current-year').textContent = new Date().getFullYear();
+    </script>
+</body>
+</html>
