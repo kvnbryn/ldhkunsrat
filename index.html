@@ -49,7 +49,11 @@
         .nav-link.active { color: #8B172E; font-weight: 600; }
         
         /* --- Hero Section --- */
-        #home { background: linear-gradient(45deg, #8B172E, #A91D3A); }
+        #home {
+            background-image: url("assets/home2.png"); /* GANTI URL GAMBAR INI */
+            background-size: cover;
+            background-position: center;
+        }
 
         /* --- PENGURUS SLIDER --- */
         #pengurus-slider-wrapper {
@@ -228,23 +232,29 @@
     </nav>
 
     <!-- Hero Section -->
-    <section id="home" class="relative h-screen flex items-center clip-path-hero overflow-hidden">
-         <div class="absolute inset-0 bg-black/40 z-[1]"></div>
-        <div class="container mx-auto px-4 relative z-[3]">
-            <div class="max-w-3xl text-left">
-                <h1 class="text-5xl md:text-7xl font-display font-bold text-white mb-3 leading-tight drop-shadow-lg">
-                    Lembaga Debat Hukum & Konstitusi
-                </h1>
-                <p class="text-lg md:text-xl font-sans font-semibold text-lightGray-dark mb-6 drop-shadow-md">
-                    Universitas Sam Ratulangi
-                </p>
-                <hr class="border-t-2 border-white w-24 my-4 opacity-80">
-                <p class="text-base md:text-lg text-white mb-8 max-w-xl leading-relaxed drop-shadow-sm">
-                    Mencetak insan akademis yang kritis, argumentatif, dan berprestasi dalam supremasi hukum dan konstitusi.
-                </p>
-                <div class="flex flex-col sm:flex-row gap-4">
-                    <a href="#profil" class="btn btn-red">Kenali Kami</a>
-                    <a href="#kontak" class="btn btn-outline-white">Hubungi Kami</a>
+<section id="home" class="relative h-screen flex items-center clip-path-hero">
+         <div class="absolute inset-0 bg-brandRed-dark/70 z-10"></div>
+        <div class="container mx-auto px-4 relative z-20">
+            <div class="grid md:grid-cols-2 gap-8 items-center">
+                <div class="text-left">
+                    <h1 class="text-5xl md:text-7xl font-display font-bold text-white mb-3 leading-tight drop-shadow-lg">
+                        Lembaga Debat Hukum & Konstitusi
+                    </h1>
+                    <p class="text-lg md:text-xl font-sans font-semibold text-lightGray-dark mb-6 drop-shadow-md">
+                        Universitas Sam Ratulangi
+                    </p>
+                    <hr class="border-t-2 border-white w-24 my-4 opacity-80">
+                    <p class="text-base md:text-lg text-white mb-8 max-w-xl leading-relaxed drop-shadow-sm">
+                        Mencetak insan akademis yang kritis, argumentatif, dan berprestasi dalam supremasi hukum dan konstitusi.
+                    </p>
+                    <div class="flex flex-col sm:flex-row gap-4">
+                        <a href="#profil" class="btn btn-red">Kenali Kami</a>
+                        <a href="#kontak" class="btn btn-outline-white">Hubungi Kami</a>
+                    </div>
+                </div>
+                <!-- PERBAIKAN: Gambar dekoratif di kanan, disembunyikan di mobile -->
+                <div class="hidden md:flex justify-center items-center">
+                    <img src="/assets/LOGO KABINET MUARA.PNG" alt="Elemen Grafis Hukum" class="w-2/3 h-auto opacity-100">
                 </div>
             </div>
         </div>
@@ -255,7 +265,7 @@
         <div class="container mx-auto px-4">
              <div class="grid grid-cols-1 lg:grid-cols-5 gap-12 items-center">
                 <div class="lg:col-span-2">
-                    <img src="https://placehold.co/500x600/A91D3A/FFFFFF?text=FOTO+ORGANISASI" alt="Profil LDHK" class="rounded-lg shadow-xl w-full h-auto object-cover">
+                    <img src="/assets/LOGO LDHK.png" alt="Profil LDHK" class="rounded-lg shadow-xl w-full h-auto object-cover">
                 </div>
                 <div class="lg:col-span-3">
                     <h2 class="section-title text-3xl md:text-4xl font-bold mb-8">Profil Organisasi</h2>
@@ -456,7 +466,7 @@
                     </div>
                     <div class="accordion-content">
                         <div class="demisioner-list">
-                            <h4 class="text-lg font-semibold text-brandRed-dark mb-4 mt-2 font-serif border-l-4 border-brandRed pl-3">Presidium</h4>
+                            <h4 class="text-lg font-semibold text-brandRed-dark mb-4 mt-2 font-serif border-l-4 border-brandRed pl-3">Presidium Inti</h4>
                             <div class="grid grid-cols-1 md:grid-cols-2 gap-x-8">
                                 <div class="demisioner-item"><p class="name">Ardila Mandak</p><p class="title">Ketua Umum</p></div>
                                 <div class="demisioner-item"><p class="name">Wullur Thifanny</p><p class="title">Sekretaris Jenderal</p></div>
@@ -485,7 +495,7 @@
                     </div>
                     <div class="accordion-content">
                          <div class="demisioner-list">
-                            <h4 class="text-lg font-semibold text-brandRed-dark mb-4 mt-2 font-serif border-l-4 border-brandRed pl-3">Presidium</h4>
+                            <h4 class="text-lg font-semibold text-brandRed-dark mb-4 mt-2 font-serif border-l-4 border-brandRed pl-3">Presidium Inti</h4>
                             <div class="grid grid-cols-1 md:grid-cols-2 gap-x-8">
                                 <div class="demisioner-item"><p class="name">Efer Tamungku</p><p class="title">Ketua Umum</p></div>
                                 <div class="demisioner-item"><p class="name">Theresya Hady</p><p class="title">Sekretaris Jenderal</p></div>
@@ -515,7 +525,7 @@
                     </div>
                     <div class="accordion-content">
                          <div class="demisioner-list">
-                            <h4 class="text-lg font-semibold text-brandRed-dark mb-4 mt-2 font-serif border-l-4 border-brandRed pl-3">Presidium</h4>
+                            <h4 class="text-lg font-semibold text-brandRed-dark mb-4 mt-2 font-serif border-l-4 border-brandRed pl-3">Presidium Inti</h4>
                             <div class="grid grid-cols-1 md:grid-cols-2 gap-x-8">
                                 <div class="demisioner-item"><p class="name">Junaidy Maramis</p><p class="title">Ketua Umum</p></div>
                                 <div class="demisioner-item"><p class="name">Inda Lestari</p><p class="title">Sekretaris Jenderal</p></div>
@@ -542,7 +552,7 @@
                     </div>
                     <div class="accordion-content">
                          <div class="demisioner-list">
-                            <h4 class="text-lg font-semibold text-brandRed-dark mb-4 mt-2 font-serif border-l-4 border-brandRed pl-3">Presidium</h4>
+                            <h4 class="text-lg font-semibold text-brandRed-dark mb-4 mt-2 font-serif border-l-4 border-brandRed pl-3">Presidium Inti</h4>
                             <div class="grid grid-cols-1 md:grid-cols-2 gap-x-8">
                                 <div class="demisioner-item"><p class="name">Santa Tulenan</p><p class="title">Ketua Umum</p></div>
                                 <div class="demisioner-item"><p class="name">Mifthahul Jannah</p><p class="title">Sekretaris Jenderal</p></div>
@@ -569,7 +579,7 @@
                     </div>
                     <div class="accordion-content">
                          <div class="demisioner-list">
-                            <h4 class="text-lg font-semibold text-brandRed-dark mb-4 mt-2 font-serif border-l-4 border-brandRed pl-3">Presidium</h4>
+                            <h4 class="text-lg font-semibold text-brandRed-dark mb-4 mt-2 font-serif border-l-4 border-brandRed pl-3">Presidium Inti</h4>
                             <div class="grid grid-cols-1 md:grid-cols-2 gap-x-8">
                                 <div class="demisioner-item"><p class="name">Antonio Tulaseket</p><p class="title">Ketua Umum</p></div>
                                 <div class="demisioner-item"><p class="name">Gracia Siregar</p><p class="title">Sekretaris Jenderal</p></div>
