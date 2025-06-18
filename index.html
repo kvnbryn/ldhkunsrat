@@ -50,7 +50,7 @@
         
         /* --- Hero Section --- */
         #home {
-            background-image: url("assets/home2.png"); /* GANTI URL GAMBAR INI */
+            background-image: url("/assets/home2.png"); /* GANTI URL GAMBAR INI */
             background-size: cover;
             background-position: center;
         }
@@ -64,12 +64,8 @@
             transition: height 0.3s ease-in-out;
             scrollbar-width: none;
         }
-        #pengurus-slider-wrapper::-webkit-scrollbar {
-            display: none;
-        }
-        #pengurus-slider-track {
-            display: flex;
-        }
+        #pengurus-slider-wrapper::-webkit-scrollbar { display: none; }
+        #pengurus-slider-track { display: flex; }
         .pengurus-slide-item {
             width: 100%;
             flex-shrink: 0;
@@ -97,11 +93,9 @@
         .nav-btn:hover { background-color: #8B172E; transform: translateY(-50%) scale(1.1); }
         #prevPengurusBtn { left: -10px; }
         #nextPengurusBtn { right: -10px; }
-        
         .dots-indicator-container { text-align: center; margin-top: 1.5rem; }
         .dot { display: inline-block; width: 10px; height: 10px; background-color: #E0E0E0; border-radius: 50%; margin: 0 5px; transition: background-color 0.3s ease, transform 0.3s ease; cursor: pointer; }
         .dot.active { background-color: #A91D3A; transform: scale(1.2); }
-
         @media (max-width: 768px) {
             #prevPengurusBtn { left: 5px; }
             #nextPengurusBtn { right: 5px; }
@@ -124,24 +118,10 @@
             background-color: white; border-radius: 0.75rem; padding: 1.5rem;
             box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
         }
-        .department-staff-grid {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 1.5rem;
-        }
-        @media (min-width: 640px) {
-            .department-staff-grid {
-                grid-template-columns: repeat(2, minmax(0, 1fr));
-            }
-        }
-        .staff-block {
-            padding-left: 1rem;
-            border-left: 3px solid #f1f1f1;
-        }
-        .staff-block ul {
-            padding-left: 1.25rem;
-        }
-
+        .department-staff-grid { display: grid; grid-template-columns: 1fr; gap: 1.5rem; }
+        @media (min-width: 640px) { .department-staff-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+        .staff-block { padding-left: 1rem; border-left: 3px solid #f1f1f1; }
+        .staff-block ul { padding-left: 1.25rem; }
 
         /* --- Demisioner Section --- */
         .accordion-item { border: 1px solid #E0E0E0; border-radius: 0.5rem; margin-bottom: 1rem; overflow: hidden; transition: box-shadow 0.3s ease; }
@@ -163,20 +143,30 @@
         .gallery-overlay { position: absolute; bottom: 0; left: 0; right: 0; background: linear-gradient(to top, rgba(100, 10, 25, 0.95) 10%, rgba(100, 10, 25, 0.7) 50%, transparent); padding: 1.5rem 1.25rem; transition: opacity 0.4s ease, transform 0.4s ease; border-bottom-left-radius: 0.75rem; border-bottom-right-radius: 0.75rem; }
         .gallery-item:hover .gallery-overlay { opacity: 1; transform: translateY(0); }
         
-        /* --- Prestasi Modal Styling --- */
-        #prestasi-modal {
-            transition: opacity 0.3s ease-in-out;
+        /* --- Gallery Modal Styling (Unified for Prestasi & Aktivitas) --- */
+        #gallery-modal { transition: opacity 0.3s ease-in-out; }
+        #gallery-modal.active { opacity: 1; pointer-events: auto; }
+        #gallery-modal.active > .modal-content-wrapper { transform: scale(1); }
+        #gallery-modal > .modal-content-wrapper { transition: transform 0.3s ease-in-out; }
+        .modal-nav-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background-color: rgba(255, 255, 255, 0.8);
+            color: #333;
+            width: 3rem;
+            height: 3rem;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            border: 1px solid #ddd;
         }
-        #prestasi-modal.active {
-            opacity: 1;
-            pointer-events: auto;
-        }
-        #prestasi-modal.active > div {
-            transform: scale(1);
-        }
-        #prestasi-modal > div {
-            transition: transform 0.3s ease-in-out;
-        }
+        .modal-nav-btn:hover { background-color: white; transform: translateY(-50%) scale(1.1); }
+        #modal-prev-btn { left: 1rem; }
+        #modal-next-btn { right: 1rem; }
 
         /* --- Button Styling --- */
         .btn { display: inline-block; padding: 0.8rem 1.8rem; border-radius: 0.5rem; font-weight: 600; text-align: center; transition: all 0.3s ease; cursor: pointer; border: none; box-shadow: 0 3px 6px rgba(0,0,0,0.1); font-family: 'Montserrat', sans-serif; }
@@ -232,7 +222,7 @@
     </nav>
 
     <!-- Hero Section -->
-<section id="home" class="relative h-screen flex items-center clip-path-hero">
+    <section id="home" class="relative h-screen flex items-center clip-path-hero">
          <div class="absolute inset-0 bg-brandRed-dark/70 z-10"></div>
         <div class="container mx-auto px-4 relative z-20">
             <div class="grid md:grid-cols-2 gap-8 items-center">
@@ -252,9 +242,8 @@
                         <a href="#kontak" class="btn btn-outline-white">Hubungi Kami</a>
                     </div>
                 </div>
-                <!-- PERBAIKAN: Gambar dekoratif di kanan, disembunyikan di mobile -->
                 <div class="hidden md:flex justify-center items-center">
-                    <img src="/assets/LOGO KABINET MUARA.PNG" alt="Elemen Grafis Hukum" class="w-2/3 h-auto opacity-100">
+                    <img src="/assets/LOGO KABINET MUARA.PNG" alt="Elemen Grafis Hukum" class="w-2/3 h-auto opacity-100" onerror="this.onerror=null;this.src='https://placehold.co/400x400/FFFFFF/A91D3A?text=KABINET+MUARA';">
                 </div>
             </div>
         </div>
@@ -265,7 +254,7 @@
         <div class="container mx-auto px-4">
              <div class="grid grid-cols-1 lg:grid-cols-5 gap-12 items-center">
                 <div class="lg:col-span-2">
-                    <img src="/assets/LOGO LDHK.png" alt="Profil LDHK" class="rounded-lg shadow-xl w-full h-auto object-cover">
+                    <img src="/assets/LOGO LDHK.png" alt="Profil LDHK" class="rounded-lg shadow-xl w-full h-auto object-cover" onerror="this.onerror=null;this.src='https://placehold.co/500x600/CCCCCC/FFFFFF?text=Profil+LDHK';">
                 </div>
                 <div class="lg:col-span-3">
                     <h2 class="section-title text-3xl md:text-4xl font-bold mb-8">Profil Organisasi</h2>
@@ -322,15 +311,15 @@
                         <div class="pengurus-slide-item">
                             <div class="text-center">
                                 <div class="inline-block leader-card mb-12">
-                                    <img src="/assets/pengurus/ketum.jpeg" alt="Ketua Umum">
+                                    <img src="/assets/pengurus/ketum.jpeg" alt="Ketua Umum" onerror="this.onerror=null;this.src='https://placehold.co/300x400/CCCCCC/FFFFFF?text=Foto';">
                                     <p class="name">Deryl Liuntuhaseng</p>
                                     <p class="title">Ketua Umum</p>
                                 </div>
                                 <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 max-w-5xl mx-auto">
-                                    <div class="sub-leader-card"><img src="/assets/pengurus/sekjen.jpeg" alt="Sekjen"><p class="name">Gracia Sengkey</p><p class="title">Sekretaris Jenderal</p></div>
-                                    <div class="sub-leader-card"><img src="/assets/pengurus/wasekjen.jpeg" alt="Wasekjen"><p class="name">Imanuela Tampilang</p><p class="title">Wakil Sekretaris Jenderal</p></div>
-                                    <div class="sub-leader-card"><img src="/assets/pengurus/bendum.jpeg" alt="Bendum"><p class="name">Fierza Abram</p><p class="title">Bendahara Umum</p></div>
-                                    <div class="sub-leader-card"><img src="/assets/pengurus/wabendum.jpeg" alt="Wabendum"><p class="name">Henoch Kambey</p><p class="title">Wakil Bendahara Umum</p></div>
+                                    <div class="sub-leader-card"><img src="/assets/pengurus/sekjen.jpeg" alt="Sekjen" onerror="this.onerror=null;this.src='https://placehold.co/300x400/CCCCCC/FFFFFF?text=Foto';"><p class="name">Gracia Sengkey</p><p class="title">Sekretaris Jenderal</p></div>
+                                    <div class="sub-leader-card"><img src="/assets/pengurus/wasekjen.jpeg" alt="Wasekjen" onerror="this.onerror=null;this.src='https://placehold.co/300x400/CCCCCC/FFFFFF?text=Foto';"><p class="name">Imanuela Tampilang</p><p class="title">Wakil Sekretaris Jenderal</p></div>
+                                    <div class="sub-leader-card"><img src="/assets/pengurus/bendum.jpeg" alt="Bendum" onerror="this.onerror=null;this.src='https://placehold.co/300x400/CCCCCC/FFFFFF?text=Foto';"><p class="name">Fierza Abram</p><p class="title">Bendahara Umum</p></div>
+                                    <div class="sub-leader-card"><img src="/assets/pengurus/wabendum.jpeg" alt="Wabendum" onerror="this.onerror=null;this.src='https://placehold.co/300x400/CCCCCC/FFFFFF?text=Foto';"><p class="name">Henoch Kambey</p><p class="title">Wakil Bendahara Umum</p></div>
                                 </div>
                             </div>
                         </div>
@@ -340,8 +329,8 @@
                              <div class="department-card">
                                 <h3 class="text-xl font-bold text-center text-brandRed-dark mb-6 font-serif">Departemen Pendidikan & Pengembangan Anggota</h3>
                                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-8 mb-6 text-center">
-                                    <div class="sub-leader-card"><img src="/assets/pengurus/direktur ppa.jpeg" alt="Direktur"><p class="name">Dennis Mawitjere</p><p class="title">Direktur</p></div>
-                                    <div class="sub-leader-card"><img src="/assets/pengurus/sek ppa.jpeg" alt="Sekretaris"><p class="name">Daniella Wowor</p><p class="title">Sekretaris</p></div>
+                                    <div class="sub-leader-card"><img src="/assets/pengurus/direktur ppa.jpeg" alt="Direktur" onerror="this.onerror=null;this.src='https://placehold.co/300x400/CCCCCC/FFFFFF?text=Foto';"><p class="name">Dennis Mawitjere</p><p class="title">Direktur</p></div>
+                                    <div class="sub-leader-card"><img src="/assets/pengurus/sek ppa.jpeg" alt="Sekretaris" onerror="this.onerror=null;this.src='https://placehold.co/300x400/CCCCCC/FFFFFF?text=Foto';"><p class="name">Daniella Wowor</p><p class="title">Sekretaris</p></div>
                                 </div>
                                 <hr class="mb-6">
                                 <div class="department-staff-grid">
@@ -366,8 +355,8 @@
                             <div class="department-card">
                                <h3 class="text-xl font-bold text-center text-brandRed-dark mb-6 font-serif">Departemen Debat & Kompetisi</h3>
                                <div class="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-8 mb-6 text-center">
-                                   <div class="sub-leader-card"><img src="/assets/pengurus/direktur ddk.jpeg" alt="Direktur"><p class="name">Putra Suma</p><p class="title">Direktur</p></div>
-                                   <div class="sub-leader-card"><img src="assets/pengurus/sek ddk.jpeg" alt="Sekretaris"><p class="name">Defrianti Paputungan</p><p class="title">Sekretaris</p></div>
+                                   <div class="sub-leader-card"><img src="/assets/pengurus/direktur ddk.jpeg" alt="Direktur" onerror="this.onerror=null;this.src='https://placehold.co/300x400/CCCCCC/FFFFFF?text=Foto';"><p class="name">Putra Suma</p><p class="title">Direktur</p></div>
+                                   <div class="sub-leader-card"><img src="/assets/pengurus/sek ddk.jpeg" alt="Sekretaris" onerror="this.onerror=null;this.src='https://placehold.co/300x400/CCCCCC/FFFFFF?text=Foto';"><p class="name">Defrianti Paputungan</p><p class="title">Sekretaris</p></div>
                                </div>
                                <hr class="mb-6">
                                <div class="department-staff-grid">
@@ -392,8 +381,8 @@
                              <div class="department-card">
                                <h3 class="text-xl font-bold text-center text-brandRed-dark mb-6 font-serif">Departemen Media & Hubungan Masyarakat</h3>
                                <div class="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-8 mb-6 text-center">
-                                   <div class="sub-leader-card"><img src="/assets/pengurus/direktur dmh.jpeg" alt="Direktur"><p class="name">Ananda Kasim</p><p class="title">Direktur</p></div>
-                                   <div class="sub-leader-card"><img src="/assets/pengurus/sek dmh.jpeg" alt="Sekretaris"><p class="name">Evan Kainde</p><p class="title">Sekretaris</p></div>
+                                   <div class="sub-leader-card"><img src="/assets/pengurus/direktur dmh.jpeg" alt="Direktur" onerror="this.onerror=null;this.src='https://placehold.co/300x400/CCCCCC/FFFFFF?text=Foto';"><p class="name">Ananda Kasim</p><p class="title">Direktur</p></div>
+                                   <div class="sub-leader-card"><img src="/assets/pengurus/sek dmh.jpeg" alt="Sekretaris" onerror="this.onerror=null;this.src='https://placehold.co/300x400/CCCCCC/FFFFFF?text=Foto';"><p class="name">Evan Kainde</p><p class="title">Sekretaris</p></div>
                                </div>
                                <hr class="mb-6">
                                <div class="department-staff-grid">
@@ -418,8 +407,8 @@
                             <div class="department-card">
                                <h3 class="text-xl font-bold text-center text-brandRed-dark mb-6 font-serif">Departemen Riset & Inovasi</h3>
                                <div class="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-8 mb-6 text-center">
-                                   <div class="sub-leader-card"><img src="assets/pengurus/direktur dri.jpeg" alt="Direktur"><p class="name">Zefanya Rawung</p><p class="title">Direktur</p></div>
-                                   <div class="sub-leader-card"><img src="/assets/pengurus/sek dri.jpeg" alt="Sekretaris"><p class="name">Angelika Pingkan</p><p class="title">Sekretaris</p></div>
+                                   <div class="sub-leader-card"><img src="/assets/pengurus/direktur dri.jpeg" alt="Direktur" onerror="this.onerror=null;this.src='https://placehold.co/300x400/CCCCCC/FFFFFF?text=Foto';"><p class="name">Zefanya Rawung</p><p class="title">Direktur</p></div>
+                                   <div class="sub-leader-card"><img src="/assets/pengurus/sek dri.jpeg" alt="Sekretaris" onerror="this.onerror=null;this.src='https://placehold.co/300x400/CCCCCC/FFFFFF?text=Foto';"><p class="name">Angelika Pingkan</p><p class="title">Sekretaris</p></div>
                                </div>
                                <hr class="mb-6">
                                <div class="department-staff-grid">
@@ -451,7 +440,7 @@
     </section>
 
     <!-- Demisioner -->
-    <section id="demisioner" class="py-20 bg-white">
+     <section id="demisioner" class="py-20 bg-white">
         <div class="container mx-auto px-4">
             <div class="text-center mb-16">
                 <h2 class="section-title text-3xl md:text-4xl font-bold mb-4">Lini Masa Kepengurusan</h2>
@@ -611,77 +600,63 @@
                 <p class="text-gray-600 max-w-2xl mx-auto">Jejak pencapaian delegasi LDHK dalam berbagai kompetisi debat hukum bergengsi.</p>
             </div>
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Prestasi 1 -->
                 <div class="gallery-item group" 
-                     data-img-src="../assets/prestasi/prestasi1.png"
-                     data-title="Juara I dan Best Speaker Kompetisi Debat Konstitusi Nasional Sriwijaya Law Fair 2024"
-                     data-description="">
-                    <img src="/assets/prestasi/prestasi1.png" alt="Prestasi 1" class="w-full h-full object-cover">
+                     data-images='["/assets/prestasi/prestasi1.png"]'
+                     data-title="Juara I dan Best Speaker Kompetisi Debat Konstitusi Nasional Sriwijaya Law Fair 2024">
+                    <img src="/assets/prestasi/prestasi1.png" alt="Prestasi 1" class="w-full h-full object-cover" onerror="this.onerror=null;this.src='https://placehold.co/600x400/a91d3a/ffffff?text=Juara+I';">
                     <div class="gallery-overlay p-4 flex flex-col justify-end text-left">
-                        <h3 class="text-lg font-bold text-white mb-1">Juara I dan Best Speaker Kompetisi Debat Konstitusi Nasional Sriwijaya Law Fair 2024</h3>
-                        <p class="text-sm text-gray-200"></p>
+                        <h3 class="text-lg font-bold text-white mb-1">Juara I & Best Speaker Sriwijaya Law Fair 2024</h3>
                     </div>
                      <div class="absolute inset-0 bg-black bg-opacity-20 flex justify-center items-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                          <span class="text-white bg-brandRed rounded-full p-4 leading-none"><i class="fas fa-search-plus text-xl"></i></span>
                      </div>
                 </div>
+                <!-- Prestasi 2 -->
                 <div class="gallery-item group"
-                     data-img-src="/assets/prestasi/prestasi2.png"
-                     data-title="Juara Harapan I Gelora Sparta Law Debate Competition 2024"
-                     data-description="">
-                    <img src="/assets/prestasi/prestasi2.png" alt="Prestasi 2" class="w-full h-full object-cover">
+                     data-images='["/assets/prestasi/prestasi2.png"]'
+                     data-title="Juara Harapan I Gelora Sparta Law Debate Competition 2024">
+                    <img src="/assets/prestasi/prestasi2.png" alt="Prestasi 2" class="w-full h-full object-cover" onerror="this.onerror=null;this.src='https://placehold.co/600x400/8B172E/ffffff?text=Juara+Harapan';">
                      <div class="gallery-overlay p-4 flex flex-col justify-end text-left">
                         <h3 class="text-lg font-bold text-white mb-1">Juara Harapan I Gelora Sparta Law Debate Competition 2024</h3>
-                        <p class="text-sm text-gray-200"></p>
                     </div>
                      <div class="absolute inset-0 bg-black bg-opacity-20 flex justify-center items-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                          <span class="text-white bg-brandRed rounded-full p-4 leading-none"><i class="fas fa-search-plus text-xl"></i></span>
                      </div>
                 </div>
+                <!-- Prestasi 3 -->
                 <div class="gallery-item group"
-                     data-img-src="/assets/prestasi/prestasi3.png"
-                     data-title="Juara III Kompetisi Debat Hukum Nasional IKAFH Universitas Khairun Ternate 2025"
-                     data-description="">
-                    <img src="/assets/prestasi/prestasi3.png" alt="Prestasi 3" class="w-full h-full object-cover">
+                     data-images='["/assets/prestasi/prestasi3.png"]'
+                     data-title="Juara III Kompetisi Debat Hukum Nasional IKAFH Universitas Khairun Ternate 2025">
+                    <img src="/assets/prestasi/prestasi3.png" alt="Prestasi 3" class="w-full h-full object-cover" onerror="this.onerror=null;this.src='https://placehold.co/600x400/C13B58/ffffff?text=Juara+III';">
                      <div class="gallery-overlay p-4 flex flex-col justify-end text-left">
-                        <h3 class="text-lg font-bold text-white mb-1">Juara III Kompetisi Debat Hukum Nasional IKAFH Universitas Khairun Ternate 2025</h3>
-                        <p class="text-sm text-gray-200"></p>
+                        <h3 class="text-lg font-bold text-white mb-1">Juara III Debat Hukum Nasional IKAFH Unkhair 2025</h3>
                     </div>
-                    
                      <div class="absolute inset-0 bg-black bg-opacity-20 flex justify-center items-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                          <span class="text-white bg-brandRed rounded-full p-4 leading-none"><i class="fas fa-search-plus text-xl"></i></span>
                      </div>
-                     
-                     
                 </div>
                 <div class="gallery-item group"
-                     data-img-src="/assets/prestasi/prestasi4.png"
-                     data-title="Juara II Kompetisi Debat Konstitusi Nasional Formasi Law Fair 2024"
-                     data-description="">
-                    <img src="/assets/prestasi/prestasi4.png" alt="Prestasi 4" class="w-full h-full object-cover">
+                     data-images='["/assets/prestasi/prestasi4.png"]'
+                     data-title="Juara II Kompetisi Debat Konstitusi Nasional Formasi Law Fair 2024">
+                    <img src="/assets/prestasi/prestasi4.png" alt="Prestasi 3" class="w-full h-full object-cover" onerror="this.onerror=null;this.src='https://placehold.co/600x400/C13B58/ffffff?text=Juara+III';">
                      <div class="gallery-overlay p-4 flex flex-col justify-end text-left">
                         <h3 class="text-lg font-bold text-white mb-1">Juara II Kompetisi Debat Konstitusi Nasional Formasi Law Fair 2024</h3>
-                        <p class="text-sm text-gray-200"></p>
                     </div>
-                    
                      <div class="absolute inset-0 bg-black bg-opacity-20 flex justify-center items-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                          <span class="text-white bg-brandRed rounded-full p-4 leading-none"><i class="fas fa-search-plus text-xl"></i></span>
                      </div>
                 </div>
                 <div class="gallery-item group"
-                     data-img-src="/assets/prestasi/prestasi5.png"
-                     data-title="Juara III Kompetisi Debat Hukum Nasional Piala Sultan Alauddin Makassar 2025"
-                     data-description="">
-                    <img src="/assets/prestasi/prestasi5.png" alt="Prestasi 5" class="w-full h-full object-cover">
+                     data-images='["/assets/prestasi/prestasi5.png"]'
+                     data-title="Juara III Kompetisi Debat Hukum Nasional Piala Sultan Alauddin Makassar 2025">
+                    <img src="/assets/prestasi/prestasi5.png" alt="Prestasi 3" class="w-full h-full object-cover" onerror="this.onerror=null;this.src='https://placehold.co/600x400/C13B58/ffffff?text=Juara+III';">
                      <div class="gallery-overlay p-4 flex flex-col justify-end text-left">
                         <h3 class="text-lg font-bold text-white mb-1">Juara III Kompetisi Debat Hukum Nasional Piala Sultan Alauddin Makassar 2025</h3>
-                        <p class="text-sm text-gray-200"></p>
                     </div>
-                    
                      <div class="absolute inset-0 bg-black bg-opacity-20 flex justify-center items-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                          <span class="text-white bg-brandRed rounded-full p-4 leading-none"><i class="fas fa-search-plus text-xl"></i></span>
                      </div>
-                     
-                     
                 </div>
             </div>
         </div>
@@ -706,12 +681,22 @@
                 <h2 class="section-title text-3xl md:text-4xl font-bold mb-4">Galeri Aktivitas</h2>
                 <p class="text-gray-600 max-w-2xl mx-auto">Momen-momen dari berbagai kegiatan kami, mulai dari latihan rutin hingga seminar.</p>
             </div>
-             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                <div class="gallery-item group relative aspect-[4/3]">
-                     <img src="/assets/aktivitas/aktivitas1.jpeg" alt="Latihan Rutin">
-                     <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent"></div>
-                     <h3 class="absolute bottom-4 left-4 text-lg font-bold text-white">Rapat terakhir pengurus kabinet muara</h3>
+             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Album 1: Rapat Kerja -->
+                <div class="gallery-item group"
+                     data-title="Rapat Teknis Kongres Ke-X"
+                     data-images='["/assets/aktivitas/aktivitas1.jpeg", "/assets/aktivitas/aktivitas2.jpeg"]'>
+                    <img src="/assets/aktivitas/aktivitas1.jpeg" alt="Rapat Teknis Kongres Ke-X" class="w-full h-full object-cover" onerror="this.onerror=null;this.src='https://placehold.co/600x400/333333/FFFFFF?text=Rapat+Kerja';">
+                    <div class="gallery-overlay p-4 flex flex-col justify-end text-left">
+                        <h3 class="text-lg font-bold text-white mb-1">Rapat Teknis Kongres Ke-X</h3>
+                        <p class="text-sm text-gray-200 flex items-center"><i class="fas fa-images mr-2"></i>2 Foto</p>
+                    </div>
+                     <div class="absolute inset-0 bg-black bg-opacity-20 flex justify-center items-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                         <span class="text-white bg-brandRed rounded-full p-4 leading-none"><i class="fas fa-search-plus text-xl"></i></span>
+                     </div>
                 </div>
+
+                <!-- Album 2: Latihan Rutin -->
             </div>
         </div>
     </section>
@@ -752,217 +737,266 @@
         </div>
     </footer>
 
-    <!-- Modal Prestasi -->
-    <div id="prestasi-modal" class="fixed inset-0 bg-black bg-opacity-75 z-[999] flex justify-center items-center p-4 opacity-0 pointer-events-none">
-        <div class="bg-white rounded-lg shadow-2xl max-w-3xl w-full max-h-full overflow-y-auto transform scale-95">
-            <div class="relative">
-                <img id="modal-img" src="" alt="Detail Prestasi" class="w-full h-auto object-contain rounded-t-lg" style="max-height: 70vh;">
-                <button id="modal-close-btn" class="absolute top-3 right-3 text-gray-800 bg-white bg-opacity-75 rounded-full w-8 h-8 flex justify-center items-center hover:bg-opacity-100 transition-all">
-                    <i class="fas fa-times"></i>
+    <!-- Modal Galeri (Unified for Prestasi & Aktivitas) -->
+    <div id="gallery-modal" class="fixed inset-0 bg-black bg-opacity-85 z-[999] flex justify-center items-center p-4 opacity-0 pointer-events-none">
+        <div class="modal-content-wrapper bg-white rounded-lg shadow-2xl w-full max-w-4xl h-auto max-h-[90vh] flex flex-col transform scale-95">
+            <!-- Header Modal -->
+            <div class="flex justify-between items-center p-4 border-b">
+                <h3 id="modal-title" class="text-xl font-bold font-serif text-brandRed-dark"></h3>
+                <button id="modal-close-btn" class="text-gray-500 hover:text-gray-800 transition-colors">
+                    <i class="fas fa-times fa-lg"></i>
                 </button>
             </div>
-            <div class="p-6">
-                <h3 id="modal-title" class="text-2xl font-bold font-serif text-brandRed-dark mb-2"></h3>
-                <p id="modal-description" class="text-gray-700 leading-relaxed"></p>
+            
+            <!-- Body Modal (Slideshow) -->
+            <div class="relative flex-grow flex items-center justify-center p-2 md:p-4 overflow-hidden bg-gray-100">
+                <img id="modal-img" src="" alt="Detail Galeri" class="max-w-full max-h-full h-auto w-auto object-contain transition-opacity duration-300">
+                
+                <!-- Tombol Navigasi Slideshow -->
+                <button id="modal-prev-btn" class="modal-nav-btn"><i class="fas fa-chevron-left"></i></button>
+                <button id="modal-next-btn" class="modal-nav-btn"><i class="fas fa-chevron-right"></i></button>
+            </div>
+
+            <!-- Footer Modal -->
+            <div class="p-3 bg-gray-50 text-center border-t">
+                <p id="modal-counter" class="text-sm text-gray-600"></p>
             </div>
         </div>
     </div>
 
-
     <script>
-        // Preloader
-        window.addEventListener('load', () => {
-            document.getElementById('preloader').classList.add('hidden');
-        });
+        document.addEventListener('DOMContentLoaded', () => {
 
-        // Mobile Menu
-        const menuToggle = document.getElementById('menu-toggle');
-        const mobileMenu = document.getElementById('mobile-menu');
-        if (menuToggle) {
-            menuToggle.addEventListener('click', () => mobileMenu.classList.toggle('hidden'));
-        }
-        if (mobileMenu) {
-            mobileMenu.querySelectorAll('a').forEach(link => {
-                link.addEventListener('click', () => mobileMenu.classList.add('hidden'));
-            });
-        }
-        
-        // Navbar Scroll
-        const navbar = document.getElementById('navbar');
-        if (navbar) {
-            window.addEventListener('scroll', () => {
-                navbar.classList.toggle('shadow-md', window.scrollY > 50);
-            });
-        }
-        
-        // Active Nav Link
-        const navLinks = document.querySelectorAll('.nav-link');
-        const sections = document.querySelectorAll('section[id]');
-        window.addEventListener('scroll', () => {
-            let current = '';
-            sections.forEach(section => {
-                const sectionTop = section.offsetTop;
-                if (pageYOffset >= sectionTop - 100) {
-                    current = section.getAttribute('id');
-                }
-            });
-            navLinks.forEach(link => {
-                link.classList.remove('active');
-                if (link.getAttribute('href').substring(1) === current) {
-                    link.classList.add('active');
-                }
-            });
-            if (window.pageYOffset < 50) {
-                const homeLink = document.querySelector('a[href="#home"].nav-link');
-                if(homeLink) homeLink.classList.add('active');
-            }
-        });
-
-        // Accordion
-        const accordionItems = document.querySelectorAll('.accordion-item');
-        accordionItems.forEach(item => {
-            const header = item.querySelector('.accordion-header');
-            const content = item.querySelector('.accordion-content');
-            header.addEventListener('click', () => {
-                const isActive = item.classList.contains('active');
-                accordionItems.forEach(i => {
-                    i.classList.remove('active');
-                    i.querySelector('.accordion-content').style.maxHeight = '0px';
-                     i.querySelector('.accordion-content').style.padding = '0 2rem';
-                });
-                if (!isActive) {
-                    item.classList.add('active');
-                    content.style.maxHeight = content.scrollHeight + 50 + 'px';
-                    content.style.padding = '1.5rem 2rem';
-                }
-            });
-        });
-
-        // PENGURUS SLIDER LOGIC
-        function setupPengurusSlider() {
-            const wrapper = document.getElementById('pengurus-slider-wrapper');
-            const slides = document.querySelectorAll('.pengurus-slide-item');
-            const prevBtn = document.getElementById('prevPengurusBtn');
-            const nextBtn = document.getElementById('nextPengurusBtn');
-            const dotsContainer = document.getElementById('dots-indicator');
-            if (!wrapper || slides.length === 0) return;
-
-            let currentIndex = 0;
-            const totalSlides = slides.length;
-            let scrollTimeout;
-
-            dotsContainer.innerHTML = '';
-            for (let i = 0; i < totalSlides; i++) {
-                const dot = document.createElement('button');
-                dot.classList.add('dot');
-                dot.addEventListener('click', () => goToSlide(i));
-                dotsContainer.appendChild(dot);
-            }
-            const dots = dotsContainer.querySelectorAll('.dot');
-
-            function updateSliderHeight() {
-                if (slides[currentIndex]) {
-                    const currentSlideHeight = slides[currentIndex].offsetHeight;
-                    wrapper.style.height = `${currentSlideHeight}px`;
-                }
-            }
-
-            function goToSlide(index) {
-                const slideWidth = wrapper.offsetWidth;
-                wrapper.scrollTo({
-                    left: slideWidth * index,
-                    behavior: 'smooth'
-                });
-            }
-            
-            function updateActiveState() {
-                 const slideWidth = wrapper.offsetWidth;
-                 const newIndex = Math.round(wrapper.scrollLeft / slideWidth);
-                 if (newIndex !== currentIndex) {
-                    currentIndex = newIndex;
-                    dots.forEach((dot, i) => {
-                        dot.classList.toggle('active', i === currentIndex);
-                    });
-                    updateSliderHeight();
-                 }
-            }
-
-            prevBtn.addEventListener('click', () => {
-                let targetIndex = currentIndex - 1;
-                if (targetIndex < 0) targetIndex = totalSlides - 1;
-                goToSlide(targetIndex);
-            });
-            nextBtn.addEventListener('click', () => {
-                 let targetIndex = currentIndex + 1;
-                if (targetIndex >= totalSlides) targetIndex = 0;
-                goToSlide(targetIndex);
-            });
-
-            wrapper.addEventListener('scroll', () => {
-                clearTimeout(scrollTimeout);
-                scrollTimeout = setTimeout(updateActiveState, 150);
-            });
-            
-            window.addEventListener('resize', () => {
-                updateSliderHeight();
-            });
-            
-            // Initial setup after everything is loaded
+            // Preloader
             window.addEventListener('load', () => {
-                if (dots.length > 0) {
-                    dots[0].classList.add('active');
+                const preloader = document.getElementById('preloader');
+                if(preloader) {
+                    preloader.classList.add('hidden');
                 }
-                updateSliderHeight();
             });
-        }
-        
-        // PRESTASI MODAL LOGIC
-        function setupPrestasiModal() {
-            const modal = document.getElementById('prestasi-modal');
-            if (!modal) return;
 
-            const modalImg = document.getElementById('modal-img');
-            const modalTitle = document.getElementById('modal-title');
-            const modalDescription = document.getElementById('modal-description');
-            const closeBtn = document.getElementById('modal-close-btn');
-            const galleryItems = document.querySelectorAll('#prestasi .gallery-item');
-
-            galleryItems.forEach(item => {
-                item.addEventListener('click', () => {
-                    const imgSrc = item.dataset.imgSrc;
-                    const title = item.dataset.title;
-                    const description = item.dataset.description;
-
-                    modalImg.src = imgSrc;
-                    modalTitle.textContent = title;
-                    modalDescription.textContent = description;
-
-                    modal.classList.add('active');
+            // Mobile Menu
+            const menuToggle = document.getElementById('menu-toggle');
+            const mobileMenu = document.getElementById('mobile-menu');
+            if (menuToggle && mobileMenu) {
+                menuToggle.addEventListener('click', () => mobileMenu.classList.toggle('hidden'));
+                mobileMenu.querySelectorAll('a').forEach(link => {
+                    link.addEventListener('click', () => mobileMenu.classList.add('hidden'));
                 });
+            }
+            
+            // Navbar Scroll Effect
+            const navbar = document.getElementById('navbar');
+            if (navbar) {
+                window.addEventListener('scroll', () => {
+                    navbar.classList.toggle('shadow-md', window.scrollY > 50);
+                });
+            }
+            
+            // Active Nav Link on Scroll
+            const navLinks = document.querySelectorAll('.nav-link');
+            const sections = document.querySelectorAll('section[id]');
+            const updateActiveNavLink = () => {
+                let current = '';
+                sections.forEach(section => {
+                    const sectionTop = section.offsetTop;
+                    if (window.pageYOffset >= sectionTop - 100) {
+                        current = section.getAttribute('id');
+                    }
+                });
+                
+                navLinks.forEach(link => {
+                    link.classList.remove('active');
+                    if (link.getAttribute('href') && link.getAttribute('href').substring(1) === current) {
+                        link.classList.add('active');
+                    }
+                });
+                
+                if (window.pageYOffset < 50) {
+                    navLinks.forEach(l => l.classList.remove('active'));
+                    const homeLink = document.querySelector('a[href="#home"].nav-link');
+                    if(homeLink) homeLink.classList.add('active');
+                }
+            };
+            window.addEventListener('scroll', updateActiveNavLink);
+            updateActiveNavLink(); // Run on load
+
+            // Accordion Logic
+            const accordionItems = document.querySelectorAll('.accordion-item');
+            accordionItems.forEach(item => {
+                const header = item.querySelector('.accordion-header');
+                const content = item.querySelector('.accordion-content');
+                if (header && content) {
+                    header.addEventListener('click', () => {
+                        const isActive = item.classList.contains('active');
+                        accordionItems.forEach(i => {
+                            i.classList.remove('active');
+                            const otherContent = i.querySelector('.accordion-content');
+                            if(otherContent) otherContent.style.maxHeight = '0px';
+                        });
+                        if (!isActive) {
+                            item.classList.add('active');
+                            content.style.maxHeight = content.scrollHeight + 50 + 'px';
+                        }
+                    });
+                }
             });
 
-            const closeModal = () => {
-                modal.classList.remove('active');
+            // Pengurus Slider Logic
+            const setupPengurusSlider = () => {
+                const wrapper = document.getElementById('pengurus-slider-wrapper');
+                const slides = document.querySelectorAll('.pengurus-slide-item');
+                const prevBtn = document.getElementById('prevPengurusBtn');
+                const nextBtn = document.getElementById('nextPengurusBtn');
+                const dotsContainer = document.getElementById('dots-indicator');
+                if (!wrapper || slides.length === 0 || !prevBtn || !nextBtn || !dotsContainer) return;
+
+                let currentIndex = 0;
+                const totalSlides = slides.length;
+                let scrollTimeout;
+
+                dotsContainer.innerHTML = '';
+                slides.forEach((_, i) => {
+                    const dot = document.createElement('button');
+                    dot.classList.add('dot');
+                    dot.addEventListener('click', () => goToSlide(i));
+                    dotsContainer.appendChild(dot);
+                });
+                const dots = dotsContainer.querySelectorAll('.dot');
+
+                const updateSliderHeight = () => {
+                    if (slides[currentIndex]) {
+                        const currentSlideHeight = slides[currentIndex].offsetHeight;
+                        wrapper.style.height = `${currentSlideHeight}px`;
+                    }
+                };
+
+                const goToSlide = (index) => {
+                    const slideWidth = wrapper.offsetWidth;
+                    wrapper.scrollTo({ left: slideWidth * index, behavior: 'smooth' });
+                };
+                
+                const updateActiveState = () => {
+                     const slideWidth = wrapper.offsetWidth;
+                     const newIndex = Math.round(wrapper.scrollLeft / slideWidth);
+                     if (newIndex !== currentIndex) {
+                        currentIndex = newIndex;
+                        dots.forEach((dot, i) => dot.classList.toggle('active', i === currentIndex));
+                        updateSliderHeight();
+                     }
+                };
+
+                prevBtn.addEventListener('click', () => goToSlide(currentIndex > 0 ? currentIndex - 1 : totalSlides - 1));
+                nextBtn.addEventListener('click', () => goToSlide(currentIndex < totalSlides - 1 ? currentIndex + 1 : 0));
+                wrapper.addEventListener('scroll', () => {
+                    clearTimeout(scrollTimeout);
+                    scrollTimeout = setTimeout(updateActiveState, 150);
+                });
+                window.addEventListener('resize', updateSliderHeight, { passive: true });
+                
+                if (dots.length > 0) dots[0].classList.add('active');
+                setTimeout(updateSliderHeight, 100);
+            };
+            
+            // Unified Gallery Modal & Slideshow Logic
+            const setupGalleryModal = () => {
+                const modal = document.getElementById('gallery-modal');
+                if (!modal) return;
+
+                const modalImg = document.getElementById('modal-img');
+                const modalTitle = document.getElementById('modal-title');
+                const modalCounter = document.getElementById('modal-counter');
+                const closeBtn = document.getElementById('modal-close-btn');
+                const nextBtn = document.getElementById('modal-next-btn');
+                const prevBtn = document.getElementById('modal-prev-btn');
+                // Target all gallery items from both sections
+                const galleryItems = document.querySelectorAll('#prestasi .gallery-item, #aktivitas .gallery-item');
+                
+                let currentImages = [];
+                let currentIndex = 0;
+
+                const showImage = (index) => {
+                    modalImg.style.opacity = '0';
+                    setTimeout(() => {
+                        modalImg.src = currentImages[index];
+                         modalImg.onerror = function() { this.onerror=null; this.src='https://placehold.co/800x600/CCCCCC/FFFFFF?text=Gambar+tidak+ditemukan'; };
+                        modalImg.style.opacity = '1';
+                    }, 150);
+                    modalCounter.textContent = `Foto ${index + 1} dari ${currentImages.length}`;
+                    const showNav = currentImages.length > 1;
+                    nextBtn.style.display = showNav ? 'flex' : 'none';
+                    prevBtn.style.display = showNav ? 'flex' : 'none';
+                };
+
+                galleryItems.forEach(item => {
+                    item.addEventListener('click', () => {
+                        const title = item.dataset.title;
+                        const imagesAttr = item.dataset.images;
+                        if (!imagesAttr) {
+                             // Fallback for old single-image format if needed
+                            const singleImgSrc = item.dataset.imgSrc;
+                            if(singleImgSrc) {
+                                currentImages = [singleImgSrc];
+                            } else {
+                                return;
+                            }
+                        } else {
+                             try {
+                                currentImages = JSON.parse(imagesAttr);
+                            } catch (e) {
+                                console.error("Error parsing gallery images data:", e);
+                                return;
+                            }
+                        }
+
+                        if (Array.isArray(currentImages) && currentImages.length > 0) {
+                            currentIndex = 0;
+                            modalTitle.textContent = title;
+                            showImage(currentIndex);
+                            modal.classList.add('active');
+                        }
+                    });
+                });
+
+                const showNextImage = () => {
+                    if (currentImages.length === 0) return;
+                    currentIndex = (currentIndex + 1) % currentImages.length;
+                    showImage(currentIndex);
+                };
+
+                const showPrevImage = () => {
+                    if (currentImages.length === 0) return;
+                    currentIndex = (currentIndex - 1 + currentImages.length) % currentImages.length;
+                    showImage(currentIndex);
+                };
+
+                const closeModal = () => modal.classList.remove('active');
+
+                nextBtn.addEventListener('click', showNextImage);
+                prevBtn.addEventListener('click', showPrevImage);
+                closeBtn.addEventListener('click', closeModal);
+                modal.addEventListener('click', (e) => { 
+                    if (e.target.id === 'gallery-modal') closeModal();
+                });
+
+                document.addEventListener('keydown', (e) => {
+                    if (!modal.classList.contains('active')) return;
+                    if (e.key === 'ArrowRight') showNextImage();
+                    if (e.key === 'ArrowLeft') showPrevImage();
+                    if (e.key === 'Escape') closeModal();
+                });
             };
 
-            closeBtn.addEventListener('click', closeModal);
-            modal.addEventListener('click', (e) => {
-                if (e.target === modal) {
-                    closeModal();
-                }
-            });
-        }
-
-        document.addEventListener('DOMContentLoaded', () => {
+            // Initialize all scripts
             setupPengurusSlider();
-            setupPrestasiModal();
-        });
+            setupGalleryModal();
 
-        // Copyright Year
-        const currentYearSpan = document.getElementById('current-year');
-        if(currentYearSpan) {
-            currentYearSpan.textContent = new Date().getFullYear();
-        }
+            // Copyright Year
+            const currentYearSpan = document.getElementById('current-year');
+            if(currentYearSpan) {
+                currentYearSpan.textContent = new Date().getFullYear();
+            }
+        });
     </script>
     
 </body>
