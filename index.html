@@ -3,15 +3,24 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LDHK UNSRAT</title> <script src="https://cdn.tailwindcss.com"></script>
+    <title>LDHK UNSRAT - Lembaga Debat Hukum & Konstitusi</title>
+    <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script>
         tailwind.config = {
             theme: {
                 extend: {
                     colors: {
-                        brandRed: { light: '#C13B58', DEFAULT: '#A91D3A', dark: '#8B172E' },
-                        lightGray: { light: '#F8F9FA', DEFAULT: '#F1F1F1', dark: '#E0E0E0' }
+                        brandRed: {
+                            light: '#C13B58',
+                            DEFAULT: '#A91D3A',
+                            dark: '#8B172E'
+                        },
+                        lightGray: {
+                            light: '#F8F9FA',
+                            DEFAULT: '#F1F1F1',
+                            dark: '#E0E0E0'
+                        }
                     },
                     fontFamily: {
                         'sans': ['Montserrat', 'sans-serif'],
@@ -24,39 +33,97 @@
     </script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Orbitron:wght@400;700&family=Merriweather:wght@400;700&display=swap');
+
+        /* --- General Styling --- */
         html { scroll-behavior: smooth; }
         body { font-family: 'Montserrat', sans-serif; background-color: #fdfdfd; color: #333; }
         .clip-path-hero { clip-path: polygon(0 0, 100% 0, 100% 85%, 0 100%); }
         .section-title { position: relative; display: inline-block; color: #8B172E; font-family: 'Merriweather', serif; }
         .section-title::after { content: ''; position: absolute; bottom: -10px; left: 0; width: 60%; height: 4px; background: linear-gradient(90deg, #A91D3A 0%, #E0E0E0 100%); border-radius: 2px; }
+
+        /* --- Navbar Styling --- */
         .nav-link { position: relative; transition: all 0.3s ease; color: #4A5568; }
         .nav-link:hover { color: #8B172E; }
         .nav-link::after { content: ''; position: absolute; bottom: -5px; left: 0; width: 0; height: 2px; background-color: #A91D3A; transition: width 0.3s ease; }
         .nav-link:hover::after, .nav-link.active::after { width: 100%; }
         .nav-link.active { color: #8B172E; font-weight: 600; }
-        #home { background-image: url("assets/home2.png"); background-size: cover; background-position: center; }
-        #pengurus-slider-wrapper { position: relative; overflow-x: auto; scroll-snap-type: x mandatory; -webkit-overflow-scrolling: touch; transition: height 0.3s ease-in-out; scrollbar-width: none; }
+        
+        /* --- Hero Section --- */
+        #home {
+            background-image: url("/assets/home2.png"); /* GANTI URL GAMBAR INI */
+            background-size: cover;
+            background-position: center;
+        }
+
+        /* --- PENGURUS SLIDER --- */
+        #pengurus-slider-wrapper {
+            position: relative;
+            overflow-x: auto;
+            scroll-snap-type: x mandatory;
+            -webkit-overflow-scrolling: touch;
+            transition: height 0.3s ease-in-out;
+            scrollbar-width: none;
+        }
         #pengurus-slider-wrapper::-webkit-scrollbar { display: none; }
         #pengurus-slider-track { display: flex; }
-        .pengurus-slide-item { width: 100%; flex-shrink: 0; padding: 1rem; box-sizing: border-box; scroll-snap-align: center; }
-        .nav-btn { position: absolute; top: 50%; transform: translateY(-50%); background-color: rgba(139, 23, 46, 0.8); color: white; width: 2.5rem; height: 2.5rem; border-radius: 9999px; box-shadow: 0 2px 4px rgba(0,0,0,0.2); transition: all 0.3s ease; display: flex; align-items: center; justify-content: center; z-index: 10; cursor: pointer; }
+        .pengurus-slide-item {
+            width: 100%;
+            flex-shrink: 0;
+            padding: 1rem;
+            box-sizing: border-box;
+            scroll-snap-align: center;
+        }
+        .nav-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background-color: rgba(139, 23, 46, 0.8);
+            color: white;
+            width: 2.5rem;
+            height: 2.5rem;
+            border-radius: 9999px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+            transition: background-color 0.3s ease, transform 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 10;
+            cursor: pointer;
+        }
         .nav-btn:hover { background-color: #8B172E; transform: translateY(-50%) scale(1.1); }
         #prevPengurusBtn { left: -10px; }
         #nextPengurusBtn { right: -10px; }
         .dots-indicator-container { text-align: center; margin-top: 1.5rem; }
-        .dot { display: inline-block; width: 10px; height: 10px; background-color: #E0E0E0; border-radius: 50%; margin: 0 5px; transition: all 0.3s ease; cursor: pointer; }
+        .dot { display: inline-block; width: 10px; height: 10px; background-color: #E0E0E0; border-radius: 50%; margin: 0 5px; transition: background-color 0.3s ease, transform 0.3s ease; cursor: pointer; }
         .dot.active { background-color: #A91D3A; transform: scale(1.2); }
-        .leader-card img { width: 12rem; height: 15rem; border-radius: 0.75rem; object-fit: cover; margin: 0 auto 0.75rem auto; box-shadow: 0 8px 24px rgba(139, 23, 46, 0.15); border: 4px solid white; }
+        @media (max-width: 768px) {
+            #prevPengurusBtn { left: 5px; }
+            #nextPengurusBtn { right: 5px; }
+        }
+
+        /* --- Kartu dan Bagan --- */
+        .leader-card img {
+            width: 12rem; height: 15rem; border-radius: 0.75rem; object-fit: cover; margin: 0 auto 0.75rem auto;
+            box-shadow: 0 8px 24px rgba(139, 23, 46, 0.15); border: 4px solid white;
+        }
         .leader-card .name { font-weight: 700; font-size: 1.125rem; color: #8B172E; }
         .leader-card .title { color: #555; text-transform: uppercase; letter-spacing: 0.05em; font-size: 0.875rem; }
-        .sub-leader-card img { width: 9rem; height: 11.25rem; border-radius: 0.75rem; object-fit: cover; margin: 0 auto 0.75rem auto; box-shadow: 0 4px 15px rgba(0,0,0,0.1); border: 3px solid white; }
+        .sub-leader-card img {
+            width: 9rem; height: 11.25rem; border-radius: 0.75rem; object-fit: cover; margin: 0 auto 0.75rem auto;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1); border: 3px solid white;
+        }
         .sub-leader-card .name { font-weight: 600; color: #333; }
         .sub-leader-card .title { color: #666; font-size: 0.875rem; }
-        .department-card { background-color: white; border-radius: 0.75rem; padding: 1.5rem; box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1); }
+        .department-card {
+            background-color: white; border-radius: 0.75rem; padding: 1.5rem;
+            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+        }
         .department-staff-grid { display: grid; grid-template-columns: 1fr; gap: 1.5rem; }
         @media (min-width: 640px) { .department-staff-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
         .staff-block { padding-left: 1rem; border-left: 3px solid #f1f1f1; }
         .staff-block ul { padding-left: 1.25rem; }
+
+        /* --- Demisioner Section --- */
         .accordion-item { border: 1px solid #E0E0E0; border-radius: 0.5rem; margin-bottom: 1rem; overflow: hidden; transition: box-shadow 0.3s ease; }
         .accordion-header { background-color: #f8f9fa; padding: 1rem 1.5rem; cursor: pointer; display: flex; justify-content: space-between; align-items: center; }
         .accordion-icon { transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
@@ -67,38 +134,64 @@
         .demisioner-item:last-child { border-bottom: none; }
         .demisioner-item .name { font-weight: 600; color: #333; }
         .demisioner-item .title { font-size: 0.9rem; color: #555; }
-        .gallery-item { overflow: hidden; position: relative; cursor: pointer; border-radius: 0.75rem; box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1); transition: all 0.3s ease; }
+        
+        /* --- Prestasi & Aktivitas (Gallery) Styling --- */
+        .gallery-item { overflow: hidden; position: relative; cursor: pointer; border-radius: 0.75rem; box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1); transition: transform 0.3s ease, box-shadow 0.3s ease; }
         .gallery-item:hover { transform: translateY(-6px) scale(1.02); box-shadow: 0 10px 25px rgba(139, 23, 46, 0.2); }
         .gallery-item img { transition: transform 0.5s ease; width: 100%; height: 100%; object-fit: cover; }
         .gallery-item:hover img { transform: scale(1.1); }
         .gallery-overlay { position: absolute; bottom: 0; left: 0; right: 0; background: linear-gradient(to top, rgba(100, 10, 25, 0.95) 10%, rgba(100, 10, 25, 0.7) 50%, transparent); padding: 1.5rem 1.25rem; transition: opacity 0.4s ease, transform 0.4s ease; border-bottom-left-radius: 0.75rem; border-bottom-right-radius: 0.75rem; }
+        .gallery-item:hover .gallery-overlay { opacity: 1; transform: translateY(0); }
+        
+        /* --- Gallery Modal Styling (Unified for Prestasi & Aktivitas) --- */
         #gallery-modal { transition: opacity 0.3s ease-in-out; }
         #gallery-modal.active { opacity: 1; pointer-events: auto; }
         #gallery-modal.active > .modal-content-wrapper { transform: scale(1); }
         #gallery-modal > .modal-content-wrapper { transition: transform 0.3s ease-in-out; }
-        .modal-nav-btn { position: absolute; top: 50%; transform: translateY(-50%); background-color: rgba(255, 255, 255, 0.8); color: #333; width: 3rem; height: 3rem; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: all 0.2s ease; border: 1px solid #ddd; }
+        .modal-nav-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background-color: rgba(255, 255, 255, 0.8);
+            color: #333;
+            width: 3rem;
+            height: 3rem;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            border: 1px solid #ddd;
+        }
         .modal-nav-btn:hover { background-color: white; transform: translateY(-50%) scale(1.1); }
         #modal-prev-btn { left: 1rem; }
         #modal-next-btn { right: 1rem; }
+
+        /* --- Button Styling --- */
         .btn { display: inline-block; padding: 0.8rem 1.8rem; border-radius: 0.5rem; font-weight: 600; text-align: center; transition: all 0.3s ease; cursor: pointer; border: none; box-shadow: 0 3px 6px rgba(0,0,0,0.1); font-family: 'Montserrat', sans-serif; }
         .btn-red { background-color: #A91D3A; color: white; }
         .btn-red:hover { background-color: #8B172E; box-shadow: 0 5px 12px rgba(139, 23, 46, 0.25); transform: translateY(-2px); }
         .btn-outline-white { background-color: transparent; color: white; border: 2px solid white; }
         .btn-outline-white:hover { background-color: rgba(255, 255, 255, 0.1); transform: translateY(-2px); box-shadow: 0 5px 12px rgba(255, 255, 255, 0.1); }
+        
+        /* --- Preloader --- */
         #preloader.hidden { opacity: 0; pointer-events: none; }
     </style>
 </head>
 <body class="bg-lightGray-light">
 
+    <!-- Preloader -->
     <div id="preloader" class="fixed inset-0 bg-lightGray-light z-[9999] flex justify-center items-center transition-opacity duration-700 ease-out">
         <div class="w-16 h-16 border-4 border-lightGray-dark border-t-brandRed rounded-full animate-spin"></div>
     </div>
 
+    <!-- Navbar -->
     <nav class="fixed w-full bg-white/95 backdrop-blur-sm z-50 transition-all duration-300 shadow-sm" id="navbar">
         <div class="container mx-auto px-4 py-3 flex justify-between items-center">
             <a href="#home" class="flex items-center space-x-3 group">
                 <span class="text-2xl text-brandRed group-hover:text-brandRed-dark transition-colors"><i class="fas fa-gavel"></i></span>
-                <span id="nav-title" class="text-xl font-display font-semibold text-brandRed group-hover:text-brandRed-dark transition-colors"></span>
+                <span class="text-xl font-display font-semibold text-brandRed group-hover:text-brandRed-dark transition-colors">LDHK UNSRAT</span>
             </a>
             <div class="hidden md:flex space-x-8">
                 <a href="#home" class="nav-link active">Beranda</a>
@@ -117,44 +210,85 @@
             </div>
         </div>
         <div id="mobile-menu" class="hidden md:hidden bg-white py-4 px-4 absolute w-full shadow-lg border-t border-gray-200">
-            </div>
+            <a href="#home" class="block py-2 text-brandRed font-semibold">Beranda</a>
+            <a href="#profil" class="block py-2 text-gray-700 hover:text-brandRed font-medium">Profil</a>
+            <a href="#pengurus" class="block py-2 text-gray-700 hover:text-brandRed font-medium">Pengurus</a>
+            <a href="#demisioner" class="block py-2 text-gray-700 hover:text-brandRed font-medium">Demisioner</a>
+            <a href="#prestasi" class="block py-2 text-gray-700 hover:text-brandRed font-medium">Prestasi</a>
+            <a href="#elibrary" class="block py-2 text-gray-700 hover:text-brandRed font-medium">e-Library</a>
+            <a href="#aktivitas" class="block py-2 text-gray-700 hover:text-brandRed font-medium">Aktivitas</a>
+            <a href="#kontak" class="block py-2 text-gray-700 hover:text-brandRed font-medium">Kontak</a>
+        </div>
     </nav>
 
+    <!-- Hero Section -->
     <section id="home" class="relative h-screen flex items-center clip-path-hero">
          <div class="absolute inset-0 bg-brandRed-dark/70 z-10"></div>
         <div class="container mx-auto px-4 relative z-20">
             <div class="grid md:grid-cols-2 gap-8 items-center">
                 <div class="text-left">
-                    <h1 id="hero-title" class="text-5xl md:text-7xl font-display font-bold text-white mb-3 leading-tight drop-shadow-lg"></h1>
-                    <p id="hero-subtitle" class="text-lg md:text-xl font-sans font-semibold text-lightGray-dark mb-6 drop-shadow-md"></p>
+                    <h1 class="text-5xl md:text-7xl font-display font-bold text-white mb-3 leading-tight drop-shadow-lg">
+                        Lembaga Debat Hukum & Konstitusi
+                    </h1>
+                    <p class="text-lg md:text-xl font-sans font-semibold text-lightGray-dark mb-6 drop-shadow-md">
+                        Universitas Sam Ratulangi
+                    </p>
                     <hr class="border-t-2 border-white w-24 my-4 opacity-80">
-                    <p id="hero-description" class="text-base md:text-lg text-white mb-8 max-w-xl leading-relaxed drop-shadow-sm"></p>
+                    <p class="text-base md:text-lg text-white mb-8 max-w-xl leading-relaxed drop-shadow-sm">
+                        Mencetak insan akademis yang kritis, argumentatif, dan berprestasi dalam supremasi hukum dan konstitusi.
+                    </p>
                     <div class="flex flex-col sm:flex-row gap-4">
                         <a href="#profil" class="btn btn-red">Kenali Kami</a>
                         <a href="#kontak" class="btn btn-outline-white">Hubungi Kami</a>
                     </div>
                 </div>
                 <div class="hidden md:flex justify-center items-center">
-                    <img id="hero-image-kabinet" src="" alt="Logo Kabinet" class="w-2/3 h-auto opacity-100">
+                    <img src="/assets/LOGO KABINET MUARA.PNG" alt="Elemen Grafis Hukum" class="w-2/3 h-auto opacity-100" onerror="this.onerror=null;this.src='https://placehold.co/400x400/FFFFFF/A91D3A?text=KABINET+MUARA';">
                 </div>
             </div>
         </div>
     </section>
 
+    <!-- Profil Organisasi -->
     <section id="profil" class="py-20 bg-white">
         <div class="container mx-auto px-4">
              <div class="grid grid-cols-1 lg:grid-cols-5 gap-12 items-center">
                 <div class="lg:col-span-2">
-                    <img id="profil-logo" src="" alt="Profil LDHK" class="rounded-lg shadow-xl w-full h-auto object-cover">
+                    <img src="/assets/LOGO LDHK.png" alt="Profil LDHK" class="rounded-lg shadow-xl w-full h-auto object-cover" onerror="this.onerror=null;this.src='https://placehold.co/500x600/CCCCCC/FFFFFF?text=Profil+LDHK';">
                 </div>
                 <div class="lg:col-span-3">
                     <h2 class="section-title text-3xl md:text-4xl font-bold mb-8">Profil Organisasi</h2>
                     <div class="space-y-6 text-gray-700 leading-relaxed">
-                        <p id="profil-deskripsi"></p>
-                        <p id="profil-tujuan"></p>
+                        <p>
+                            <span class="font-bold text-brandRed-dark">Lembaga Debat Hukum dan Konstitusi (LDHK)</span> merupakan sebuah organisasi akademik independen yang didirikan di Manado pada tanggal 28 Oktober 2015 dan berkedudukan di Fakultas Hukum Universitas Sam Ratulangi.
+                        </p>
+                        <p>
+                            Tujuan daripada Lembaga Debat Hukum dan Konstitusi ialah untuk membentuk kader yang berpikir kritis, santun dalam bertutur, serta bijaksana dalam bertindak.
+                        </p>
                         <div>
                             <h4 class="font-bold text-lg text-brandRed-dark mb-3 font-serif">Usaha Pencapaian Tujuan</h4>
-                            <ul id="profil-usaha" class="list-none space-y-4"></ul>
+                            <ul class="list-none space-y-4">
+                                <li class="flex items-start">
+                                    <i class="fas fa-sitemap text-brandRed mt-1 mr-4 w-5 text-center"></i>
+                                    <span>Membentuk Biro Kegiatan Mahasiswa Akademik yang unggul dan berkelanjutan.</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <i class="fas fa-balance-scale text-brandRed mt-1 mr-4 w-5 text-center"></i>
+                                    <span>Menjadikan LDHK sebagai laboratorium hukum bagi mahasiswa Fakultas Hukum Universitas Sam Ratulangi.</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <i class="fas fa-users-cog text-brandRed mt-1 mr-4 w-5 text-center"></i>
+                                    <span>Menemukan dan Membentuk kader pendebat, penulis, dan Peradilan Semu Mahkamah Konstitusi untuk mewakili Fakultas Hukum Universitas Sam Ratulangi baik di tingkat lokal, regional dan nasional bahkan internasional.</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <i class="fas fa-flag text-brandRed mt-1 mr-4 w-5 text-center"></i>
+                                    <span>Berperan aktif dalam ruang lingkup kemahasiswaan dan kepemudaan untuk menopang pembangunan nasional.</span>
+                                </li>
+                                 <li class="flex items-start">
+                                    <i class="fas fa-puzzle-piece text-brandRed mt-1 mr-4 w-5 text-center"></i>
+                                    <span>Sebagai pelengkap dalam struktur-struktur kepengurusan mahasiswa.</span>
+                                </li>
+                            </ul>
                         </div>
                     </div>
                 </div>
@@ -162,111 +296,725 @@
         </div>
     </section>
 
+    <!-- Struktur Pengurus dengan Slider -->
     <section id="pengurus" class="py-20 bg-lightGray-light">
         <div class="container mx-auto px-4">
             <div class="text-center mb-12">
-                <h2 id="pengurus-nama-kabinet" class="section-title text-3xl md:text-4xl font-bold mb-4"></h2>
-                <p id="pengurus-deskripsi" class="text-gray-600 max-w-2xl mx-auto"></p>
+                <h2 class="section-title text-3xl md:text-4xl font-bold mb-4">Kabinet Muara</h2>
+                <p class="text-gray-600 max-w-2xl mx-auto">Struktur Organisasi LDHK FH UNSRAT Periode 2024/2025.</p>
             </div>
             
             <div class="relative">
                 <div id="pengurus-slider-wrapper">
                     <div id="pengurus-slider-track">
+                        <!-- Slide 1: BPH -->
+                        <div class="pengurus-slide-item">
+                            <div class="text-center">
+                                <div class="inline-block leader-card mb-12">
+                                    <img src="/assets/pengurus/ketum.jpeg" alt="Ketua Umum" onerror="this.onerror=null;this.src='https://placehold.co/300x400/CCCCCC/FFFFFF?text=Foto';">
+                                    <p class="name">Deryl Liuntuhaseng</p>
+                                    <p class="title">Ketua Umum</p>
+                                </div>
+                                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 max-w-5xl mx-auto">
+                                    <div class="sub-leader-card"><img src="/assets/pengurus/sekjen.jpeg" alt="Sekjen" onerror="this.onerror=null;this.src='https://placehold.co/300x400/CCCCCC/FFFFFF?text=Foto';"><p class="name">Gracia Sengkey</p><p class="title">Sekretaris Jenderal</p></div>
+                                    <div class="sub-leader-card"><img src="/assets/pengurus/wasekjen.jpeg" alt="Wasekjen" onerror="this.onerror=null;this.src='https://placehold.co/300x400/CCCCCC/FFFFFF?text=Foto';"><p class="name">Imanuela Tampilang</p><p class="title">Wakil Sekretaris Jenderal</p></div>
+                                    <div class="sub-leader-card"><img src="/assets/pengurus/bendum.jpeg" alt="Bendum" onerror="this.onerror=null;this.src='https://placehold.co/300x400/CCCCCC/FFFFFF?text=Foto';"><p class="name">Fierza Abram</p><p class="title">Bendahara Umum</p></div>
+                                    <div class="sub-leader-card"><img src="/assets/pengurus/wabendum.jpeg" alt="Wabendum" onerror="this.onerror=null;this.src='https://placehold.co/300x400/CCCCCC/FFFFFF?text=Foto';"><p class="name">Henoch Kambey</p><p class="title">Wakil Bendahara Umum</p></div>
+                                </div>
+                            </div>
                         </div>
+
+                        <!-- Slide 2: Departemen Pendidikan -->
+                        <div class="pengurus-slide-item">
+                             <div class="department-card">
+                                <h3 class="text-xl font-bold text-center text-brandRed-dark mb-6 font-serif">Departemen Pendidikan & Pengembangan Anggota</h3>
+                                <div class="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-8 mb-6 text-center">
+                                    <div class="sub-leader-card"><img src="/assets/pengurus/direktur ppa.jpeg" alt="Direktur" onerror="this.onerror=null;this.src='https://placehold.co/300x400/CCCCCC/FFFFFF?text=Foto';"><p class="name">Dennis Mawitjere</p><p class="title">Direktur</p></div>
+                                    <div class="sub-leader-card"><img src="/assets/pengurus/sek ppa.jpeg" alt="Sekretaris" onerror="this.onerror=null;this.src='https://placehold.co/300x400/CCCCCC/FFFFFF?text=Foto';"><p class="name">Daniella Wowor</p><p class="title">Sekretaris</p></div>
+                                </div>
+                                <hr class="mb-6">
+                                <div class="department-staff-grid">
+                                    <div class="staff-block">
+                                        <p class="font-bold text-gray-800">Flora Aurilia</p><p class="text-gray-600 mb-2 text-sm">Deputi Pendidikan</p>
+                                        <p class="font-bold text-gray-800">Indy Worang</p><p class="text-gray-600 mb-2 text-sm">Wakil Deputi Pendidikan</p>
+                                        <p class="font-bold text-gray-800 mt-3">Staff:</p>
+                                        <ul class="list-disc text-gray-600 text-sm"><li>Syalomita Palandeng</li><li>Nadine Howanussa</li><li>Matthew Sigalingging</li></ul>
+                                    </div>
+                                    <div class="staff-block">
+                                        <p class="font-bold text-gray-800">Arjuna Rumengan</p><p class="text-gray-600 mb-2 text-sm">Deputi Pengkaderan</p>
+                                        <p class="font-bold text-gray-800">Marsya Pradini</p><p class="text-gray-600 mb-2 text-sm">Wakil Deputi Pengkaderan</p>
+                                        <p class="font-bold text-gray-800 mt-3">Staff:</p>
+                                        <ul class="list-disc text-gray-600 text-sm"><li>Hersa Pontoh</li><li>Vera Rantepadang</li><li>Fhazyah Putri Aulia</li></ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Slide 3: Departemen Debat -->
+                        <div class="pengurus-slide-item">
+                            <div class="department-card">
+                               <h3 class="text-xl font-bold text-center text-brandRed-dark mb-6 font-serif">Departemen Debat & Kompetisi</h3>
+                               <div class="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-8 mb-6 text-center">
+                                   <div class="sub-leader-card"><img src="/assets/pengurus/direktur ddk.jpeg" alt="Direktur" onerror="this.onerror=null;this.src='https://placehold.co/300x400/CCCCCC/FFFFFF?text=Foto';"><p class="name">Putra Suma</p><p class="title">Direktur</p></div>
+                                   <div class="sub-leader-card"><img src="/assets/pengurus/sek ddk.jpeg" alt="Sekretaris" onerror="this.onerror=null;this.src='https://placehold.co/300x400/CCCCCC/FFFFFF?text=Foto';"><p class="name">Defrianti Paputungan</p><p class="title">Sekretaris</p></div>
+                               </div>
+                               <hr class="mb-6">
+                               <div class="department-staff-grid">
+                                   <div class="staff-block">
+                                       <p class="font-bold text-gray-800">Joachim Mandey</p><p class="text-gray-600 mb-2 text-sm">Deputi Debat</p>
+                                       <p class="font-bold text-gray-800">Michell Binilang</p><p class="text-gray-600 mb-2 text-sm">Wakil Deputi Debat</p>
+                                       <p class="font-bold text-gray-800 mt-3">Staff:</p>
+                                       <ul class="list-disc text-gray-600 text-sm"><li>Dewi Kaparang</li><li>Jessica Bawole</li><li>Leon Oedang</li><li>Ninggor Hutasoit</li></ul>
+                                   </div>
+                                   <div class="staff-block">
+                                       <p class="font-bold text-gray-800">Jeaqline Pande</p><p class="text-gray-600 mb-2 text-sm">Deputi Kompetisi</p>
+                                       <p class="font-bold text-gray-800">Afrio Surbakti</p><p class="text-gray-600 mb-2 text-sm">Wakil Deputi Kompetisi</p>
+                                       <p class="font-bold text-gray-800 mt-3">Staff:</p>
+                                       <ul class="list-disc text-gray-600 text-sm"><li>Nindy Bachtiar</li><li>Javier Manggasali</li><li>Agatha Sirait</li><li>Satria Nainggolan</li></ul>
+                                   </div>
+                               </div>
+                           </div>
+                        </div>
+                        
+                        <!-- Slide 4: Departemen Media & Humas -->
+                        <div class="pengurus-slide-item">
+                             <div class="department-card">
+                               <h3 class="text-xl font-bold text-center text-brandRed-dark mb-6 font-serif">Departemen Media & Hubungan Masyarakat</h3>
+                               <div class="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-8 mb-6 text-center">
+                                   <div class="sub-leader-card"><img src="/assets/pengurus/direktur dmh.jpeg" alt="Direktur" onerror="this.onerror=null;this.src='https://placehold.co/300x400/CCCCCC/FFFFFF?text=Foto';"><p class="name">Ananda Kasim</p><p class="title">Direktur</p></div>
+                                   <div class="sub-leader-card"><img src="/assets/pengurus/sek dmh.jpeg" alt="Sekretaris" onerror="this.onerror=null;this.src='https://placehold.co/300x400/CCCCCC/FFFFFF?text=Foto';"><p class="name">Evan Kainde</p><p class="title">Sekretaris</p></div>
+                               </div>
+                               <hr class="mb-6">
+                               <div class="department-staff-grid">
+                                   <div class="staff-block">
+                                       <p class="font-bold text-gray-800">Juwarni Husain</p><p class="text-gray-600 mb-2 text-sm">Deputi Media</p>
+                                       <p class="font-bold text-gray-800">Griffith Kekung</p><p class="text-gray-600 mb-2 text-sm">Wakil Deputi Media</p>
+                                       <p class="font-bold text-gray-800 mt-3">Staff:</p>
+                                       <ul class="list-disc text-gray-600 text-sm"><li>Zhia Bonde</li><li>Niken Kurnia</li></ul>
+                                   </div>
+                                   <div class="staff-block">
+                                       <p class="font-bold text-gray-800">Jevon Pali</p><p class="text-gray-600 mb-2 text-sm">Deputi Humas</p>
+                                       <p class="font-bold text-gray-800">Stefano Sayangbati</p><p class="text-gray-600 mb-2 text-sm">Wakil Deputi Humas</p>
+                                       <p class="font-bold text-gray-800 mt-3">Staff:</p>
+                                       <ul class="list-disc text-gray-600 text-sm"><li>Hafit Afiyatun</li><li>Feybiola Agusprianto</li><li>Hiden Kaangkung</li><li>Rivo Lepa</li></ul>
+                                   </div>
+                               </div>
+                           </div>
+                        </div>
+
+                        <!-- Slide 5: Departemen Riset & Inovasi -->
+                        <div class="pengurus-slide-item">
+                            <div class="department-card">
+                               <h3 class="text-xl font-bold text-center text-brandRed-dark mb-6 font-serif">Departemen Riset & Inovasi</h3>
+                               <div class="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-8 mb-6 text-center">
+                                   <div class="sub-leader-card"><img src="/assets/pengurus/direktur dri.jpeg" alt="Direktur" onerror="this.onerror=null;this.src='https://placehold.co/300x400/CCCCCC/FFFFFF?text=Foto';"><p class="name">Zefanya Rawung</p><p class="title">Direktur</p></div>
+                                   <div class="sub-leader-card"><img src="/assets/pengurus/sek dri.jpeg" alt="Sekretaris" onerror="this.onerror=null;this.src='https://placehold.co/300x400/CCCCCC/FFFFFF?text=Foto';"><p class="name">Angelika Pingkan</p><p class="title">Sekretaris</p></div>
+                               </div>
+                               <hr class="mb-6">
+                               <div class="department-staff-grid">
+                                   <div class="staff-block">
+                                       <p class="font-bold text-gray-800">Takbir</p><p class="text-gray-600 mb-2 text-sm">Deputi Riset</p>
+                                       <p class="font-bold text-gray-800">Febrianti Mangguali</p><p class="text-gray-600 mb-2 text-sm">Wakil Deputi Riset</p>
+                                       <p class="font-bold text-gray-800 mt-3">Staff:</p>
+                                       <ul class="list-disc text-gray-600 text-sm"><li>Hotniel Marbun</li><li>Chrytiyanty Debeturu</li></ul>
+                                   </div>
+                                   <div class="staff-block">
+                                       <p class="font-bold text-gray-800">Viona Siringoringo</p><p class="text-gray-600 mb-2 text-sm">Deputi Inovasi</p>
+                                       <p class="font-bold text-gray-800">Farah Lakoro</p><p class="text-gray-600 mb-2 text-sm">Wakil Deputi Inovasi</p>
+                                       <p class="font-bold text-gray-800 mt-3">Staff:</p>
+                                       <ul class="list-disc text-gray-600 text-sm"><li>Aprilia Onibala</li><li>Sovia Nae</li><li>Stephanie Assa</li><li>Kristina Sinaga</li><li>Fania Aura</li></ul>
+                                   </div>
+                               </div>
+                           </div>
+                        </div>
+
+                    </div>
                 </div>
+                <!-- Tombol Navigasi Slider -->
                 <button id="prevPengurusBtn" class="nav-btn"><i class="fas fa-chevron-left"></i></button>
                 <button id="nextPengurusBtn" class="nav-btn"><i class="fas fa-chevron-right"></i></button>
             </div>
+            <!-- Indikator Titik -->
             <div id="dots-indicator" class="dots-indicator-container"></div>
         </div>
     </section>
 
-    <section id="demisioner" class="py-20 bg-white">
+    <!-- Demisioner -->
+<section id="demisioner" class="py-20 bg-white">
         <div class="container mx-auto px-4">
             <div class="text-center mb-16">
-                <h2 id="demisioner-title" class="section-title text-3xl md:text-4xl font-bold mb-4"></h2>
-                <p id="demisioner-description" class="text-gray-600 max-w-2xl mx-auto"></p>
+                <h2 class="section-title text-3xl md:text-4xl font-bold mb-4">Lini Masa Kepengurusan</h2>
+                <p class="text-gray-600 max-w-2xl mx-auto">Menghargai dedikasi para pengurus dari masa ke masa yang telah membangun LDHK.</p>
             </div>
             <div class="max-w-4xl mx-auto" id="accordion-container">
+                <div class="accordion-item">
+                    <div class="accordion-header">
+                        <h3>Kabinet Nawakala</h3>
+                        <i class="fas fa-chevron-down accordion-icon"></i>
+                    </div>
+                    <div class="accordion-content">
+                        <div class="demisioner-list">
+                            <h4 class="text-lg font-semibold text-brandRed-dark mb-4 mt-2 font-serif border-l-4 border-brandRed pl-3">Presidium Inti</h4>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-x-8">
+                                <div class="demisioner-item"><p class="name">Ardila Mandak</p><p class="title">Ketua Umum</p></div>
+                                <div class="demisioner-item"><p class="name">Wullur Thifanny</p><p class="title">Sekretaris Jenderal</p></div>
+                                <div class="demisioner-item"><p class="name">Virgie Makarawung</p><p class="title">Wakil Sekretaris Jenderal</p></div>
+                                <div class="demisioner-item"><p class="name">Feiny Himpede</p><p class="title">Bendahara Umum</p></div>
+                                <div class="demisioner-item"><p class="name">Yudi Ujung</p><p class="title">Wakil Bendahara Umum</p></div>
+                            </div>
+                            <h4 class="text-lg font-semibold text-brandRed-dark mb-4 mt-8 font-serif border-l-4 border-brandRed pl-3">Direktur & Sekretaris</h4>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-x-8">
+                                <div class="demisioner-item"><p class="name">Gabriel Maramis</p><p class="title">Direktur PPA</p></div>
+                                <div class="demisioner-item"><p class="name">Caren Mailoor</p><p class="title">Sekretaris PPA</p></div>
+                                <div class="demisioner-item"><p class="name">Deryl Liuntuhaseng</p><p class="title">Direktur DDK</p></div>
+                                <div class="demisioner-item"><p class="name">Rio Van Gobel</p><p class="title">Sekretaris DDK</p></div>
+                                <div class="demisioner-item"><p class="name">Felife Muhaling</p><p class="title">Direktur DRI</p></div>
+                                <div class="demisioner-item"><p class="name">Vandi Raropa</p><p class="title">Sekretaris DRI</p></div>
+                                <div class="demisioner-item"><p class="name">Kherenhiz Bawotong</p><p class="title">Direktur DMH</p></div>
+                                <div class="demisioner-item"><p class="name">Sherina Prajoko</p><p class="title">Sekretaris DMH</p></div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
+                <div class="accordion-item">
+                    <div class="accordion-header">
+                        <h3>Kabinet Satu</h3>
+                        <i class="fas fa-chevron-down accordion-icon"></i>
+                    </div>
+                    <div class="accordion-content">
+                         <div class="demisioner-list">
+                            <h4 class="text-lg font-semibold text-brandRed-dark mb-4 mt-2 font-serif border-l-4 border-brandRed pl-3">Presidium Inti</h4>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-x-8">
+                                <div class="demisioner-item"><p class="name">Efer Tamungku</p><p class="title">Ketua Umum</p></div>
+                                <div class="demisioner-item"><p class="name">Theresya Hady</p><p class="title">Sekretaris Jenderal</p></div>
+                                <div class="demisioner-item"><p class="name">Cahya Sakti</p><p class="title">Wakil Sekretaris Jenderal</p></div>
+                                <div class="demisioner-item"><p class="name">Iren Rumajar</p><p class="title">Bendahara Umum</p></div>
+                                <div class="demisioner-item"><p class="name">Valery Lubis</p><p class="title">Wakil Bendahara Umum 1</p></div>
+                                <div class="demisioner-item"><p class="name">Cindy Adilang</p><p class="title">Wakil Bendahara Umum 2</p></div>
+                            </div>
+                            <h4 class="text-lg font-semibold text-brandRed-dark mb-4 mt-8 font-serif border-l-4 border-brandRed pl-3">Direktur & Sekretaris</h4>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-x-8">
+                                <div class="demisioner-item"><p class="name">Ardila Mandak</p><p class="title">Direktur PPA</p></div>
+                                <div class="demisioner-item"><p class="name">Jesica Naibaho</p><p class="title">Sekretaris PPA</p></div>
+                                <div class="demisioner-item"><p class="name">Rifky Mamonto</p><p class="title">Direktur DDK</p></div>
+                                <div class="demisioner-item"><p class="name">Kristina Sihombing</p><p class="title">Sekretaris DDK</p></div>
+                                <div class="demisioner-item"><p class="name">Chelsya Tumewu</p><p class="title">Direktur DRI</p></div>
+                                <div class="demisioner-item"><p class="name">Yolandita Buisan</p><p class="title">Sekretaris DRI</p></div>
+                                <div class="demisioner-item"><p class="name">Dave Sompie</p><p class="title">Direktur DMH</p></div>
+                                <div class="demisioner-item"><p class="name">Wullur Thifany</p><p class="title">Sekretaris DMH</p></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <div class="accordion-header">
+                        <h3>Kabinet Masif</h3>
+                        <i class="fas fa-chevron-down accordion-icon"></i>
+                    </div>
+                    <div class="accordion-content">
+                         <div class="demisioner-list">
+                            <h4 class="text-lg font-semibold text-brandRed-dark mb-4 mt-2 font-serif border-l-4 border-brandRed pl-3">Presidium Inti</h4>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-x-8">
+                                <div class="demisioner-item"><p class="name">Junaidy Maramis</p><p class="title">Ketua Umum</p></div>
+                                <div class="demisioner-item"><p class="name">Inda Lestari</p><p class="title">Sekretaris Jenderal</p></div>
+                                <div class="demisioner-item"><p class="name">Norima Gea</p><p class="title">Wakil Sekretaris Jenderal</p></div>
+                                <div class="demisioner-item"><p class="name">Widiarti Mulyadi</p><p class="title">Bendahara Umum</p></div>
+                                <div class="demisioner-item"><p class="name">Sukaynah Bachmid</p><p class="title">Wakil Bendahara Umum</p></div>
+                            </div>
+                            <h4 class="text-lg font-semibold text-brandRed-dark mb-4 mt-8 font-serif border-l-4 border-brandRed pl-3">Direktur & Sekretaris</h4>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-x-8">
+                                <div class="demisioner-item"><p class="name">Dwi Mokoagow</p><p class="title">Direktur PPA</p></div>
+                                <div class="demisioner-item"><p class="name">Firmansyah Satyawidjaja</p><p class="title">Sekretaris PPA</p></div>
+                                <div class="demisioner-item"><p class="name">Efer Tamungku</p><p class="title">Direktur DDK</p></div>
+                                <div class="demisioner-item"><p class="name">Denov Pancarani</p><p class="title">Sekretaris DDK</p></div>
+                                <div class="demisioner-item"><p class="name">Salsabilla Putri</p><p class="title">Direktur DMH</p></div>
+                                <div class="demisioner-item"><p class="name">Dave Sompie</p><p class="title">Sekretaris DMH</p></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <div class="accordion-header">
+                        <h3>Kabinet Korelasi</h3>
+                        <i class="fas fa-chevron-down accordion-icon"></i>
+                    </div>
+                    <div class="accordion-content">
+                         <div class="demisioner-list">
+                            <h4 class="text-lg font-semibold text-brandRed-dark mb-4 mt-2 font-serif border-l-4 border-brandRed pl-3">Presidium Inti</h4>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-x-8">
+                                <div class="demisioner-item"><p class="name">Santa Tulenan</p><p class="title">Ketua Umum</p></div>
+                                <div class="demisioner-item"><p class="name">Mifthahul Jannah</p><p class="title">Sekretaris Jenderal</p></div>
+                                <div class="demisioner-item"><p class="name">Anggrenia Mamesah</p><p class="title">Wakil Sekretaris Jenderal</p></div>
+                                <div class="demisioner-item"><p class="name">Grasela Sengkey</p><p class="title">Bendahara Umum</p></div>
+                                <div class="demisioner-item"><p class="name">Rovika Luawo</p><p class="title">Wakil Bendahara Umum</p></div>
+                            </div>
+                            <h4 class="text-lg font-semibold text-brandRed-dark mb-4 mt-8 font-serif border-l-4 border-brandRed pl-3">Direktur & Sekretaris</h4>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-x-8">
+                                <div class="demisioner-item"><p class="name">Junaidy Maramis</p><p class="title">Direktur PPA</p></div>
+                                <div class="demisioner-item"><p class="name">Safa Lasabuda</p><p class="title">Sekretaris PPA</p></div>
+                                <div class="demisioner-item"><p class="name">Yoses Tarigan</p><p class="title">Direktur DDK</p></div>
+                                <div class="demisioner-item"><p class="name">Ester Tantri</p><p class="title">Sekretaris DDK</p></div>
+                                <div class="demisioner-item"><p class="name">Rizki Kamarullah</p><p class="title">Direktur DMH</p></div>
+                                <div class="demisioner-item"><p class="name">Monica Palungan</p><p class="title">Sekretaris DMH</p></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <div class="accordion-header">
+                        <h3>Periode 2019-2020</h3>
+                        <i class="fas fa-chevron-down accordion-icon"></i>
+                    </div>
+                    <div class="accordion-content">
+                         <div class="demisioner-list">
+                            <h4 class="text-lg font-semibold text-brandRed-dark mb-4 mt-2 font-serif border-l-4 border-brandRed pl-3">Presidium Inti</h4>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-x-8">
+                                <div class="demisioner-item"><p class="name">Antonio Tulaseket</p><p class="title">Ketua Umum</p></div>
+                                <div class="demisioner-item"><p class="name">Gracia Siregar</p><p class="title">Sekretaris Jenderal</p></div>
+                                <div class="demisioner-item"><p class="name">Gaiby Pelleng</p><p class="title">Wakil Sekretaris Jenderal</p></div>
+                                <div class="demisioner-item"><p class="name">Andi Dimah</p><p class="title">Bendahara Umum</p></div>
+                                <div class="demisioner-item"><p class="name">Efritia Assa</p><p class="title">Wakil Bendahara Umum</p></div>
+                            </div>
+                            <h4 class="text-lg font-semibold text-brandRed-dark mb-4 mt-8 font-serif border-l-4 border-brandRed pl-3">Direktur & Sekretaris</h4>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-x-8">
+                                <div class="demisioner-item"><p class="name">Pricilia Siahaya</p><p class="title">Direktur PPA</p></div>
+                                <div class="demisioner-item"><p class="name">Junaidy Maramis</p><p class="title">Sekretaris PPA</p></div>
+                                <div class="demisioner-item"><p class="name">Tri Putra Kuku</p><p class="title">Direktur DDK</p></div>
+                                <div class="demisioner-item"><p class="name">Anggrenia Mamesah</p><p class="title">Sekretaris DDK</p></div>
+                                <div class="demisioner-item"><p class="name">Pratama Putra</p><p class="title">Direktur DMH</p></div>
+                                <div class="demisioner-item"><p class="name">Grasela Sengkey</p><p class="title">Sekretaris DMH</p></div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                </div>
+                <div class="accordion-item">
+                    <div class="accordion-header">
+                        <h3>Founding Fathers</h3>
+                        <i class="fas fa-chevron-down accordion-icon"></i>
+                    </div>
+                    <div class="accordion-content">
+                        <div class="demisioner-list">
+                            <h4 class="text-lg font-semibold text-brandRed-dark mb-4 mt-2 font-serif border-l-4 border-brandRed pl-3">Para Pendiri</h4>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-x-8">
+                                <div class="demisioner-item"><p class="name">Sirajudin Raju</p><p class="title">Founding Father</p></div>
+                                <div class="demisioner-item"><p class="name">Nando Mantulangi</p><p class="title">Founding Father</p></div>
+                                <div class="demisioner-item"><p class="name">Hadi Alamri</p><p class="title">Founding Father</p></div>
+                                <div class="demisioner-item"><p class="name">M. Thoriq Liputo</p><p class="title">Founding Father</p></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </section>
     
+    <!-- Prestasi -->
     <section id="prestasi" class="py-20 bg-lightGray-light">
        <div class="container mx-auto px-4">
             <div class="text-center mb-16">
-                <h2 id="prestasi-title" class="section-title text-3xl md:text-4xl font-bold mb-4"></h2>
-                <p id="prestasi-description" class="text-gray-600 max-w-2xl mx-auto"></p>
+                <h2 class="section-title text-3xl md:text-4xl font-bold mb-4">Prestasi & Penghargaan</h2>
+                <p class="text-gray-600 max-w-2xl mx-auto">Jejak pencapaian delegasi LDHK dalam berbagai kompetisi debat hukum bergengsi.</p>
             </div>
-            <div id="prestasi-gallery" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Prestasi 1 -->
+                <div class="gallery-item group" 
+                     data-images='["/assets/prestasi/prestasi1.png"]'
+                     data-title="Juara I dan Best Speaker Kompetisi Debat Konstitusi Nasional Sriwijaya Law Fair 2024">
+                    <img src="/assets/prestasi/prestasi1.png" alt="Prestasi 1" class="w-full h-full object-cover" onerror="this.onerror=null;this.src='https://placehold.co/600x400/a91d3a/ffffff?text=Juara+I';">
+                    <div class="gallery-overlay p-4 flex flex-col justify-end text-left">
+                        <h3 class="text-lg font-bold text-white mb-1">Juara I & Best Speaker Sriwijaya Law Fair 2024</h3>
+                    </div>
+                     <div class="absolute inset-0 bg-black bg-opacity-20 flex justify-center items-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                         <span class="text-white bg-brandRed rounded-full p-4 leading-none"><i class="fas fa-search-plus text-xl"></i></span>
+                     </div>
                 </div>
+                <!-- Prestasi 2 -->
+                <div class="gallery-item group"
+                     data-images='["/assets/prestasi/prestasi2.png"]'
+                     data-title="Juara Harapan I Gelora Sparta Law Debate Competition 2024">
+                    <img src="/assets/prestasi/prestasi2.png" alt="Prestasi 2" class="w-full h-full object-cover" onerror="this.onerror=null;this.src='https://placehold.co/600x400/8B172E/ffffff?text=Juara+Harapan';">
+                     <div class="gallery-overlay p-4 flex flex-col justify-end text-left">
+                        <h3 class="text-lg font-bold text-white mb-1">Juara Harapan I Gelora Sparta Law Debate Competition 2024</h3>
+                    </div>
+                     <div class="absolute inset-0 bg-black bg-opacity-20 flex justify-center items-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                         <span class="text-white bg-brandRed rounded-full p-4 leading-none"><i class="fas fa-search-plus text-xl"></i></span>
+                     </div>
+                </div>
+                <!-- Prestasi 3 -->
+                <div class="gallery-item group"
+                     data-images='["/assets/prestasi/prestasi3.png"]'
+                     data-title="Juara III Kompetisi Debat Hukum Nasional IKAFH Universitas Khairun Ternate 2025">
+                    <img src="/assets/prestasi/prestasi3.png" alt="Prestasi 3" class="w-full h-full object-cover" onerror="this.onerror=null;this.src='https://placehold.co/600x400/C13B58/ffffff?text=Juara+III';">
+                     <div class="gallery-overlay p-4 flex flex-col justify-end text-left">
+                        <h3 class="text-lg font-bold text-white mb-1">Juara III Debat Hukum Nasional IKAFH Unkhair 2025</h3>
+                    </div>
+                     <div class="absolute inset-0 bg-black bg-opacity-20 flex justify-center items-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                         <span class="text-white bg-brandRed rounded-full p-4 leading-none"><i class="fas fa-search-plus text-xl"></i></span>
+                     </div>
+                </div>
+                <div class="gallery-item group"
+                     data-images='["/assets/prestasi/prestasi4.png"]'
+                     data-title="Juara II Kompetisi Debat Konstitusi Nasional Formasi Law Fair 2024">
+                    <img src="/assets/prestasi/prestasi4.png" alt="Prestasi 3" class="w-full h-full object-cover" onerror="this.onerror=null;this.src='https://placehold.co/600x400/C13B58/ffffff?text=Juara+III';">
+                     <div class="gallery-overlay p-4 flex flex-col justify-end text-left">
+                        <h3 class="text-lg font-bold text-white mb-1">Juara II Kompetisi Debat Konstitusi Nasional Formasi Law Fair 2024</h3>
+                    </div>
+                     <div class="absolute inset-0 bg-black bg-opacity-20 flex justify-center items-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                         <span class="text-white bg-brandRed rounded-full p-4 leading-none"><i class="fas fa-search-plus text-xl"></i></span>
+                     </div>
+                </div>
+                <div class="gallery-item group"
+                     data-images='["/assets/prestasi/prestasi5.png"]'
+                     data-title="Juara III Kompetisi Debat Hukum Nasional Piala Sultan Alauddin Makassar 2025">
+                    <img src="/assets/prestasi/prestasi5.png" alt="Prestasi 3" class="w-full h-full object-cover" onerror="this.onerror=null;this.src='https://placehold.co/600x400/C13B58/ffffff?text=Juara+III';">
+                     <div class="gallery-overlay p-4 flex flex-col justify-end text-left">
+                        <h3 class="text-lg font-bold text-white mb-1">Juara III Kompetisi Debat Hukum Nasional Piala Sultan Alauddin Makassar 2025</h3>
+                    </div>
+                     <div class="absolute inset-0 bg-black bg-opacity-20 flex justify-center items-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                         <span class="text-white bg-brandRed rounded-full p-4 leading-none"><i class="fas fa-search-plus text-xl"></i></span>
+                     </div>
+                </div>
+            </div>
         </div>
     </section>
 
+    <!-- e-Library -->
     <section id="elibrary" class="py-20 bg-white text-center">
        <div class="container mx-auto px-4">
             <i class="fas fa-book-open text-5xl text-brandRed mb-4"></i>
             <h2 class="section-title text-3xl md:text-4xl font-bold mb-4">Pustaka Digital LDHK</h2>
             <p class="text-gray-600 max-w-2xl mx-auto mb-8">Akses koleksi modul pelatihan, bank mosi, riset hukum, dan sumber daya lainnya untuk menunjang perkembangan Anda.</p>
-            <a id="elibrary-link" href="" target="_blank" rel="noopener noreferrer" class="btn btn-red text-lg">
+            <a href="https://drive.google.com/drive/folders/1--0rAzBqmsbvRCvq75Lvq2HmMd35G3kX" target="_blank" rel="noopener noreferrer" class="btn btn-red text-lg">
                 <i class="fas fa-folder-open mr-2"></i> Kunjungi e-Library
             </a>
         </div>
     </section>
 
+    <!-- Aktivitas -->
     <section id="aktivitas" class="py-20 bg-lightGray-light">
        <div class="container mx-auto px-4">
             <div class="text-center mb-16">
-                <h2 id="aktivitas-title" class="section-title text-3xl md:text-4xl font-bold mb-4"></h2>
-                <p id="aktivitas-description" class="text-gray-600 max-w-2xl mx-auto"></p>
+                <h2 class="section-title text-3xl md:text-4xl font-bold mb-4">Galeri Aktivitas</h2>
+                <p class="text-gray-600 max-w-2xl mx-auto">Momen-momen dari berbagai kegiatan kami, mulai dari latihan rutin hingga seminar.</p>
             </div>
-             <div id="aktivitas-gallery" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Album 1: Rapat Kerja -->
+                <div class="gallery-item group"
+                     data-title="Rapat Teknis Kongres Ke-X"
+                     data-images='["/assets/aktivitas/aktivitas1.jpeg", "/assets/aktivitas/aktivitas2.jpeg"]'>
+                    <img src="/assets/aktivitas/aktivitas1.jpeg" alt="Rapat Teknis Kongres Ke-X" class="w-full h-full object-cover" onerror="this.onerror=null;this.src='https://placehold.co/600x400/333333/FFFFFF?text=Rapat+Kerja';">
+                    <div class="gallery-overlay p-4 flex flex-col justify-end text-left">
+                        <h3 class="text-lg font-bold text-white mb-1">Rapat Teknis Kongres Ke-X</h3>
+                        <p class="text-sm text-gray-200 flex items-center"><i class="fas fa-images mr-2"></i>2 Foto</p>
+                    </div>
+                     <div class="absolute inset-0 bg-black bg-opacity-20 flex justify-center items-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                         <span class="text-white bg-brandRed rounded-full p-4 leading-none"><i class="fas fa-search-plus text-xl"></i></span>
+                     </div>
                 </div>
+
+                <!-- Album 2: Latihan Rutin -->
+            </div>
         </div>
     </section>
     
+    <!-- Kontak -->
     <section id="kontak" class="py-20 bg-brandRed-dark text-white">
         <div class="container mx-auto px-4 text-center">
             <h2 class="font-serif text-3xl md:text-4xl font-bold mb-4">Terhubung Dengan Kami</h2>
             <p class="max-w-2xl mx-auto mb-8 opacity-90">Untuk informasi pendaftaran, penawaran kerjasama, atau pertanyaan lainnya, kunjungi pusat tautan kami.</p>
-            <a id="kontak-linktree" href="" target="_blank" rel="noopener noreferrer" class="btn btn-outline-white text-lg">
+            <a href="https://linktr.ee/ldhkunsrat" target="_blank" rel="noopener noreferrer" class="btn btn-outline-white text-lg">
                 <i class="fas fa-link mr-2"></i> Kunjungi Linktree
             </a>
             <div class="mt-12">
                 <p class="mb-5 text-sm opacity-80 tracking-wider uppercase">Atau ikuti kami di media sosial</p>
-                <div id="kontak-social-media" class="flex justify-center items-center space-x-6 md:space-x-8">
-                    </div>
+                <div class="flex justify-center items-center space-x-6 md:space-x-8">
+                    <a href="https://www.instagram.com/ldhk_unsrat/" target="_blank" rel="noopener noreferrer" aria-label="Instagram" class="text-2xl text-white opacity-75 hover:opacity-100 hover:scale-110 transform transition-all duration-300">
+                        <i class="fab fa-instagram"></i>
+                    </a>
+                    <a href="https://www.tiktok.com/@ldhkunsrat" target="_blank" rel="noopener noreferrer" aria-label="TikTok" class="text-2xl text-white opacity-75 hover:opacity-100 hover:scale-110 transform transition-all duration-300">
+                        <i class="fab fa-tiktok"></i>
+                    </a>
+                    <a href="https://www.youtube.com/@ldhkunsrat5324" target="_blank" rel="noopener noreferrer" aria-label="YouTube" class="text-2xl text-white opacity-75 hover:opacity-100 hover:scale-110 transform transition-all duration-300">
+                        <i class="fab fa-youtube"></i>
+                    </a>
+                     <a href="https://www.facebook.com/people/Ldhk-Unsrat/pfbid035iAcyazRVfn8Vkq8TutN7CKVgkEZwEG7BfRq11yTP1mnaJt6xfG8V5a7FbQd8My2l/?mibextid=ZbWKwL" target="_blank" rel="noopener noreferrer" aria-label="Facebook" class="text-2xl text-white opacity-75 hover:opacity-100 hover:scale-110 transform transition-all duration-300">
+                        <i class="fab fa-facebook-f"></i>
+                    </a>
+                </div>
             </div>
         </div>
     </section>
     
+    <!-- Footer -->
     <footer class="bg-gray-800 text-gray-300 py-12">
         <div class="container mx-auto px-4 text-center">
-            <p>© <span id="current-year"></span> LDHK UNSRAT. All Rights Reserved.</p>
+            <p>© <span id="current-year">2024</span> LDHK UNSRAT. All Rights Reserved.</p>
             <p class="text-sm mt-2 opacity-70">Crafted with passion for legal discourse.</p>
         </div>
     </footer>
 
+    <!-- Modal Galeri (Unified for Prestasi & Aktivitas) -->
     <div id="gallery-modal" class="fixed inset-0 bg-black bg-opacity-85 z-[999] flex justify-center items-center p-4 opacity-0 pointer-events-none">
         <div class="modal-content-wrapper bg-white rounded-lg shadow-2xl w-full max-w-4xl h-auto max-h-[90vh] flex flex-col transform scale-95">
+            <!-- Header Modal -->
             <div class="flex justify-between items-center p-4 border-b">
                 <h3 id="modal-title" class="text-xl font-bold font-serif text-brandRed-dark"></h3>
                 <button id="modal-close-btn" class="text-gray-500 hover:text-gray-800 transition-colors">
                     <i class="fas fa-times fa-lg"></i>
                 </button>
             </div>
+            
+            <!-- Body Modal (Slideshow) -->
             <div class="relative flex-grow flex items-center justify-center p-2 md:p-4 overflow-hidden bg-gray-100">
                 <img id="modal-img" src="" alt="Detail Galeri" class="max-w-full max-h-full h-auto w-auto object-contain transition-opacity duration-300">
+                
+                <!-- Tombol Navigasi Slideshow -->
                 <button id="modal-prev-btn" class="modal-nav-btn"><i class="fas fa-chevron-left"></i></button>
                 <button id="modal-next-btn" class="modal-nav-btn"><i class="fas fa-chevron-right"></i></button>
             </div>
+
+            <!-- Footer Modal -->
             <div class="p-3 bg-gray-50 text-center border-t">
                 <p id="modal-counter" class="text-sm text-gray-600"></p>
             </div>
         </div>
     </div>
-    
-    <script src="js/app.js"></script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+
+            // Preloader
+            window.addEventListener('load', () => {
+                const preloader = document.getElementById('preloader');
+                if(preloader) {
+                    preloader.classList.add('hidden');
+                }
+            });
+
+            // Mobile Menu
+            const menuToggle = document.getElementById('menu-toggle');
+            const mobileMenu = document.getElementById('mobile-menu');
+            if (menuToggle && mobileMenu) {
+                menuToggle.addEventListener('click', () => mobileMenu.classList.toggle('hidden'));
+                mobileMenu.querySelectorAll('a').forEach(link => {
+                    link.addEventListener('click', () => mobileMenu.classList.add('hidden'));
+                });
+            }
+            
+            // Navbar Scroll Effect
+            const navbar = document.getElementById('navbar');
+            if (navbar) {
+                window.addEventListener('scroll', () => {
+                    navbar.classList.toggle('shadow-md', window.scrollY > 50);
+                });
+            }
+            
+            // Active Nav Link on Scroll
+            const navLinks = document.querySelectorAll('.nav-link');
+            const sections = document.querySelectorAll('section[id]');
+            const updateActiveNavLink = () => {
+                let current = '';
+                sections.forEach(section => {
+                    const sectionTop = section.offsetTop;
+                    if (window.pageYOffset >= sectionTop - 100) {
+                        current = section.getAttribute('id');
+                    }
+                });
+                
+                navLinks.forEach(link => {
+                    link.classList.remove('active');
+                    if (link.getAttribute('href') && link.getAttribute('href').substring(1) === current) {
+                        link.classList.add('active');
+                    }
+                });
+                
+                if (window.pageYOffset < 50) {
+                    navLinks.forEach(l => l.classList.remove('active'));
+                    const homeLink = document.querySelector('a[href="#home"].nav-link');
+                    if(homeLink) homeLink.classList.add('active');
+                }
+            };
+            window.addEventListener('scroll', updateActiveNavLink);
+            updateActiveNavLink(); // Run on load
+
+            // Accordion Logic
+            const accordionItems = document.querySelectorAll('.accordion-item');
+            accordionItems.forEach(item => {
+                const header = item.querySelector('.accordion-header');
+                const content = item.querySelector('.accordion-content');
+                if (header && content) {
+                    header.addEventListener('click', () => {
+                        const isActive = item.classList.contains('active');
+                        accordionItems.forEach(i => {
+                            i.classList.remove('active');
+                            const otherContent = i.querySelector('.accordion-content');
+                            if(otherContent) otherContent.style.maxHeight = '0px';
+                        });
+                        if (!isActive) {
+                            item.classList.add('active');
+                            content.style.maxHeight = content.scrollHeight + 50 + 'px';
+                        }
+                    });
+                }
+            });
+
+            // Pengurus Slider Logic
+            const setupPengurusSlider = () => {
+                const wrapper = document.getElementById('pengurus-slider-wrapper');
+                const slides = document.querySelectorAll('.pengurus-slide-item');
+                const prevBtn = document.getElementById('prevPengurusBtn');
+                const nextBtn = document.getElementById('nextPengurusBtn');
+                const dotsContainer = document.getElementById('dots-indicator');
+                if (!wrapper || slides.length === 0 || !prevBtn || !nextBtn || !dotsContainer) return;
+
+                let currentIndex = 0;
+                const totalSlides = slides.length;
+                let scrollTimeout;
+
+                dotsContainer.innerHTML = '';
+                slides.forEach((_, i) => {
+                    const dot = document.createElement('button');
+                    dot.classList.add('dot');
+                    dot.addEventListener('click', () => goToSlide(i));
+                    dotsContainer.appendChild(dot);
+                });
+                const dots = dotsContainer.querySelectorAll('.dot');
+
+                const updateSliderHeight = () => {
+                    if (slides[currentIndex]) {
+                        const currentSlideHeight = slides[currentIndex].offsetHeight;
+                        wrapper.style.height = `${currentSlideHeight}px`;
+                    }
+                };
+
+                const goToSlide = (index) => {
+                    const slideWidth = wrapper.offsetWidth;
+                    wrapper.scrollTo({ left: slideWidth * index, behavior: 'smooth' });
+                };
+                
+                const updateActiveState = () => {
+                     const slideWidth = wrapper.offsetWidth;
+                     const newIndex = Math.round(wrapper.scrollLeft / slideWidth);
+                     if (newIndex !== currentIndex) {
+                        currentIndex = newIndex;
+                        dots.forEach((dot, i) => dot.classList.toggle('active', i === currentIndex));
+                        updateSliderHeight();
+                     }
+                };
+
+                prevBtn.addEventListener('click', () => goToSlide(currentIndex > 0 ? currentIndex - 1 : totalSlides - 1));
+                nextBtn.addEventListener('click', () => goToSlide(currentIndex < totalSlides - 1 ? currentIndex + 1 : 0));
+                wrapper.addEventListener('scroll', () => {
+                    clearTimeout(scrollTimeout);
+                    scrollTimeout = setTimeout(updateActiveState, 150);
+                });
+                window.addEventListener('resize', updateSliderHeight, { passive: true });
+                
+                if (dots.length > 0) dots[0].classList.add('active');
+                setTimeout(updateSliderHeight, 100);
+            };
+            
+            // Unified Gallery Modal & Slideshow Logic
+            const setupGalleryModal = () => {
+                const modal = document.getElementById('gallery-modal');
+                if (!modal) return;
+
+                const modalImg = document.getElementById('modal-img');
+                const modalTitle = document.getElementById('modal-title');
+                const modalCounter = document.getElementById('modal-counter');
+                const closeBtn = document.getElementById('modal-close-btn');
+                const nextBtn = document.getElementById('modal-next-btn');
+                const prevBtn = document.getElementById('modal-prev-btn');
+                // Target all gallery items from both sections
+                const galleryItems = document.querySelectorAll('#prestasi .gallery-item, #aktivitas .gallery-item');
+                
+                let currentImages = [];
+                let currentIndex = 0;
+
+                const showImage = (index) => {
+                    modalImg.style.opacity = '0';
+                    setTimeout(() => {
+                        modalImg.src = currentImages[index];
+                         modalImg.onerror = function() { this.onerror=null; this.src='https://placehold.co/800x600/CCCCCC/FFFFFF?text=Gambar+tidak+ditemukan'; };
+                        modalImg.style.opacity = '1';
+                    }, 150);
+                    modalCounter.textContent = `Foto ${index + 1} dari ${currentImages.length}`;
+                    const showNav = currentImages.length > 1;
+                    nextBtn.style.display = showNav ? 'flex' : 'none';
+                    prevBtn.style.display = showNav ? 'flex' : 'none';
+                };
+
+                galleryItems.forEach(item => {
+                    item.addEventListener('click', () => {
+                        const title = item.dataset.title;
+                        const imagesAttr = item.dataset.images;
+                        if (!imagesAttr) {
+                             // Fallback for old single-image format if needed
+                            const singleImgSrc = item.dataset.imgSrc;
+                            if(singleImgSrc) {
+                                currentImages = [singleImgSrc];
+                            } else {
+                                return;
+                            }
+                        } else {
+                             try {
+                                currentImages = JSON.parse(imagesAttr);
+                            } catch (e) {
+                                console.error("Error parsing gallery images data:", e);
+                                return;
+                            }
+                        }
+
+                        if (Array.isArray(currentImages) && currentImages.length > 0) {
+                            currentIndex = 0;
+                            modalTitle.textContent = title;
+                            showImage(currentIndex);
+                            modal.classList.add('active');
+                        }
+                    });
+                });
+
+                const showNextImage = () => {
+                    if (currentImages.length === 0) return;
+                    currentIndex = (currentIndex + 1) % currentImages.length;
+                    showImage(currentIndex);
+                };
+
+                const showPrevImage = () => {
+                    if (currentImages.length === 0) return;
+                    currentIndex = (currentIndex - 1 + currentImages.length) % currentImages.length;
+                    showImage(currentIndex);
+                };
+
+                const closeModal = () => modal.classList.remove('active');
+
+                nextBtn.addEventListener('click', showNextImage);
+                prevBtn.addEventListener('click', showPrevImage);
+                closeBtn.addEventListener('click', closeModal);
+                modal.addEventListener('click', (e) => { 
+                    if (e.target.id === 'gallery-modal') closeModal();
+                });
+
+                document.addEventListener('keydown', (e) => {
+                    if (!modal.classList.contains('active')) return;
+                    if (e.key === 'ArrowRight') showNextImage();
+                    if (e.key === 'ArrowLeft') showPrevImage();
+                    if (e.key === 'Escape') closeModal();
+                });
+            };
+
+            // Initialize all scripts
+            setupPengurusSlider();
+            setupGalleryModal();
+
+            // Copyright Year
+            const currentYearSpan = document.getElementById('current-year');
+            if(currentYearSpan) {
+                currentYearSpan.textContent = new Date().getFullYear();
+            }
+        });
+    </script>
     
 </body>
 </html>
